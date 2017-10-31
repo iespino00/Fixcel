@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-10-2017 a las 06:28:38
+-- Tiempo de generación: 31-10-2017 a las 01:29:41
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -19,6 +19,19 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `fixcel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `anulacion_ventas`
+--
+
+CREATE TABLE IF NOT EXISTS `anulacion_ventas` (
+`id_anulacion` int(11) NOT NULL,
+  `id_ticket` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `fecha_anulacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registro de las ventas anuladas after  del status de ventas';
 
 -- --------------------------------------------------------
 
@@ -110,16 +123,24 @@ CREATE TABLE IF NOT EXISTS `subcategorias_productos` (
 CREATE TABLE IF NOT EXISTS `usuarios` (
 `id_user` int(11) NOT NULL,
   `nickname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `password` text COLLATE utf8_unicode_ci NOT NULL,
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellido_paterno` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellido_materno` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `direccion` text COLLATE utf8_unicode_ci NOT NULL,
-  `telefono` int(10) NOT NULL,
+  `telefono` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `correo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `status` int(1) NOT NULL,
-  `tipo` int(1) NOT NULL,
+  `status` int(1) NOT NULL COMMENT '0 = Inactivo, 1= Activo',
+  `tipo` int(1) NOT NULL COMMENT '0 = Empleado y 1 = Admin',
   `fecha_alta_usuario` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_user`, `nickname`, `password`, `nombre`, `apellido_paterno`, `apellido_materno`, `direccion`, `telefono`, `correo`, `status`, `tipo`, `fecha_alta_usuario`) VALUES
+(1, 'iespino', 'dev', 'Ignacio', 'Espino', 'Rivera', 'Direccion', '7532255364', 'iespino69@gmail.com', 1, 1, '2017-10-30 22:31:24');
 
 -- --------------------------------------------------------
 
@@ -131,12 +152,19 @@ CREATE TABLE IF NOT EXISTS `ventas` (
 `id_ticket` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `fecha_ticket` int(11) NOT NULL,
-  `total_venta` int(11) NOT NULL
+  `total_venta` int(11) NOT NULL,
+  `status_ticket` int(2) NOT NULL COMMENT '0= Anulado y 1= Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `anulacion_ventas`
+--
+ALTER TABLE `anulacion_ventas`
+ ADD PRIMARY KEY (`id_anulacion`), ADD KEY `id_ticket` (`id_ticket`,`id_user`), ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `categoria_productos`
@@ -191,6 +219,11 @@ ALTER TABLE `ventas`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `anulacion_ventas`
+--
+ALTER TABLE `anulacion_ventas`
+MODIFY `id_anulacion` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT de la tabla `categoria_productos`
 --
 ALTER TABLE `categoria_productos`
@@ -224,7 +257,7 @@ MODIFY `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
@@ -233,6 +266,13 @@ MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `anulacion_ventas`
+--
+ALTER TABLE `anulacion_ventas`
+ADD CONSTRAINT `FK idTicketAnulacion` FOREIGN KEY (`id_ticket`) REFERENCES `ventas` (`id_ticket`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `FK idUsertAnulacion` FOREIGN KEY (`id_user`) REFERENCES `usuarios` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `codigos_barras`
