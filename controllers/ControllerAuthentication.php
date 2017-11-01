@@ -1,7 +1,7 @@
 <?php
 
 require_once './models/Authentication.php';
- 
+  
 class ControllerAuthentication
 {
     private $db;
@@ -12,9 +12,9 @@ class ControllerAuthentication
         // connecting to database
         $this->db = new DB_Connect();
         $this->pdo = $this->db->connect();
-
-    }
  
+    }
+  
     function __destruct() 
     {
          
@@ -22,7 +22,7 @@ class ControllerAuthentication
 
     public function login($nickname, $password) 
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE nickname = :nickname AND password = :password');
+        $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE nickname = :nickname AND password = :password and status = 1');
 
         $stmt->execute(
               array('nickname' => $nickname, 
@@ -44,23 +44,6 @@ class ControllerAuthentication
         return null;
 
     }
-
-  
-
-   
-
-   
- 
-    
-   
-
- 
-    
-   
-
-    
-
-    
 
 }
  

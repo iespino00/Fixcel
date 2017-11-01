@@ -4,12 +4,14 @@
   error_reporting(E_ERROR | E_WARNING | E_PARSE);
   $_SESSION['id_user'] = "";
   $_SESSION['nickname'] = "";
+  $_SESSION['tipo'] = "";
+  $_SESSION['status'] = "";
 
   require 'controllers/ControllerAuthentication.php';
   $controller_Auth = new ControllerAuthentication();
 
 ?>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,14 +36,38 @@
 
 <script>
  
-  function alerta(nick_alert){
-      swal({
-    title: "Bienvenido!",
-    text: nick_alert,
-    timer: 1000,
-    showConfirmButton: false
-  });
-      }
+  function alerta(nick_alert)
+  {
+             swal({
+                  title: "Bienvenido!",
+                  text: nick_alert,
+                  timer: 1000,
+                  showConfirmButton: false
+               });
+
+           setTimeout(next, 1000);
+  }
+
+    function alerta_wrong()
+  {
+             swal({
+                  title: "Usuario o contraseña no válida!",
+                  timer: 1000,
+                  showConfirmButton: false
+               });
+
+           setTimeout(login, 1900);
+  }
+
+  function next()
+  {
+    location.href="panel.php";
+  }
+
+  function login()
+  {
+    location.href="index.php";
+  }
 </script>
 </head>
 
@@ -53,26 +79,24 @@
 
   if( isset($_POST['submit']) ) 
     {
+ 	$nickname  = $_POST['nickname'];
+ 	$password =  $_POST['password'];   
 
-      $auth = $controller_Auth->login($_POST['nickname'], $_POST['password'] );
+      $auth = $controller_Auth->login($nickname, $password );
 
         if($auth != null) 
         {
-             $_SESSION['nickname'] = $_POST['nickname'];
-             $_SESSION['password'] = $_POST['password'];
+        	
+             $_SESSION['nickname'] = $auth->nickname;
              $_SESSION['tipo'] = $auth->tipo;
-             $_SESSION['tipo'] = $auth->tipo;
-             $_SESSION['status'] = $auth->status;
-             $nickk = $_POST['nickname'];
+             $_SESSION['status'] = $_SESSION['tipo'] ;
 
-
-         echo '<script>alerta (" .$nickk.");</script>';
-
-
-            // echo "<script type='text/javascript'>location.href='panel.php';</script>";
+        echo '<script>alerta ("'.$auth->nickname.'");</script>';
+     //    echo "<script type='text/javascript'>location.href='panel.php';</script>";
         }
         else{
-               echo "<script>alert('Usuario o Contraseña no valida.');</script>";
+                echo '<script>alerta_wrong();</script>';
+              
             }
 
     } 
@@ -87,7 +111,7 @@
         <form class="form" method="POST">
     			<input type="text" id="nickname" name="nickname" placeholder="Nickname" class="form-control"  />
     			<input type="password" name="password" id="password" placeholder="Password" class="form-control" />
-    			<button type="submit"  id="sesion" name="submit"  class="btn btn-default btn-block btn-custom">Accesar</button>
+    			<button type="submit"  id="submit" name="submit"  class="btn btn-default btn-block btn-custom">Accesar</button>
         </form>
 
 

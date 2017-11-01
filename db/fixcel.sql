@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2017 a las 01:29:41
+-- Tiempo de generación: 01-11-2017 a las 01:26:16
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `subcategorias_productos` (
 CREATE TABLE IF NOT EXISTS `usuarios` (
 `id_user` int(11) NOT NULL,
   `nickname` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `password` text COLLATE utf8_unicode_ci NOT NULL,
+  `password` varbinary(200) NOT NULL,
   `nombre` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellido_paterno` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `apellido_materno` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -132,15 +132,16 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `correo` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `status` int(1) NOT NULL COMMENT '0 = Inactivo, 1= Activo',
   `tipo` int(1) NOT NULL COMMENT '0 = Empleado y 1 = Admin',
-  `fecha_alta_usuario` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `fecha_alta_usuario` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_user`, `nickname`, `password`, `nombre`, `apellido_paterno`, `apellido_materno`, `direccion`, `telefono`, `correo`, `status`, `tipo`, `fecha_alta_usuario`) VALUES
-(1, 'iespino', 'dev', 'Ignacio', 'Espino', 'Rivera', 'Direccion', '7532255364', 'iespino69@gmail.com', 1, 1, '2017-10-30 22:31:24');
+(2, 'empleado', 0x30, 'Nombre empleado', 'paterno empleado', 'materno empleado', 'direccion empleado', '6764455264', 'empleado@gmail.com', 1, 0, '2017-10-31 23:45:31'),
+(3, 'psanchez', 0x30, 'Pedro', 'sanchez', 'perez', 'imparcial', '993894958', 'pedro@fixcel.com', 1, 0, '2017-10-31 22:01:41');
 
 -- --------------------------------------------------------
 
@@ -257,7 +258,7 @@ MODIFY `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
