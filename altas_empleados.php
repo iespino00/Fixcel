@@ -14,6 +14,26 @@ $controller_usuarios = new ControllerUsuarios();
 $users = $controller_usuarios->getAllUsers();
 
 
+if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
+{
+   /* $obj = new Tematicas();
+
+    $obj->id_tematica = $_REQUEST['idMD'];
+    $obj->descripcion_tematica = $_REQUEST['tematicaMD'];
+
+    $formulario = $controlador->actualizarTematica($obj);
+       
+    if($formulario)//si x trae 1 quiere decir que
+      {  
+      
+      echo "<script type='text/javascript'>location.href='registro_tematicas.php';</script>";
+      }           
+      */
+       echo "<script type='text/javascript'>alert('Presionado');</script>";
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +58,16 @@ $users = $controller_usuarios->getAllUsers();
   <link rel="stylesheet" href="dist_alert/sweetalert.css">
 
   <script>
- 
+ function validaNum(e)
+ {
+     var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;
+         
+        return /\d/.test(String.fromCharCode(keynum));
+}
+
+
   function ok_empleado_add()
   {
              swal({
@@ -65,6 +94,37 @@ $users = $controller_usuarios->getAllUsers();
   {
     location.href="altas_empleados.php";
   }
+
+
+     function TratarModeDialog($id,$nickname,$nombre,$apellido_paterno,$apellido_materno,$direccion,$telefono,$correo,$password,$status,$tipo)
+    {
+
+         var id=$id;
+         var nickname=$nickname;
+         var nombre=$nombre;   
+         var apellido_paterno=$apellido_paterno;   
+         var apellido_materno=$apellido_materno;   
+         var direccion=$direccion;   
+         var telefono=$telefono;   
+         var correo=$correo;
+         var password=$password;      
+         var status=$status; 
+         var tipo=$tipo;  
+             
+       document.getElementById('idMD').value = id;   
+       document.getElementById('nicknameMD').value = nickname;
+       document.getElementById('nombreMD').value = nombre;
+       document.getElementById('apellido_paternoMD').value = apellido_paterno;
+       document.getElementById('apellido_maternoMD').value = apellido_materno;
+       document.getElementById('direccionMD').value = direccion;
+       document.getElementById('telefonoMD').value = telefono;
+       document.getElementById('correoMD').value = correo;  
+       document.getElementById('passwordMD').value = password;  
+       document.getElementById('statusMD').value = status; 
+       document.getElementById('tipoMD').value = tipo; 
+       
+    }
+
 </script>
 
 
@@ -140,7 +200,7 @@ $users = $controller_usuarios->getAllUsers();
                     
                      <div class="col-md-6">
                  <center><label for="example-tel-input">Telefono:</label></center>
-                    <input class="form-control" id="telefono" name="telefono" type="tel" aria-describedby="telHelp" placeholder="Escribe teléfono">
+                    <input class="form-control" id="telefono" name="telefono" type="tel" aria-describedby="telHelp" placeholder="Escribe teléfono" onkeypress="return validaNum(event)" maxlength="10">
                     </div>
 
                 <div class="col-md-6">
@@ -185,7 +245,8 @@ $users = $controller_usuarios->getAllUsers();
                   <th>Teléfono</th>
                   <th>Correo</th>
                   <th>Status</th>
-                  <th>Usuario</th>
+                  <th>Tipo de Usuario</th>
+                  <th>Acción</th>
                 </tr>
               </thead>
               <tfoot>
@@ -196,7 +257,8 @@ $users = $controller_usuarios->getAllUsers();
                   <th>Teléfono</th>
                   <th>Correo</th>
                   <th>Status</th>
-                  <th>Usuario</th>
+                  <th>Tipo de Usuario</th>
+                  <th>Acción</th>
                 </tr>
               </tfoot>
               <tbody>
@@ -205,30 +267,44 @@ $users = $controller_usuarios->getAllUsers();
                   {
                     if($u->status == 0)
                     {
-                      $status = "Inactivo";
+                      $statusT = "Inactivo";
                     }elseif($u->status == 1)
                         {
-                          $status = "Activo";
+                          $statusT = "Activo";
                         }
 
                   if($u->tipo == 0)
                     {
-                      $tipo = "Empleado";
+                      $tipoT = "Empleado";
                     }elseif($u->tipo == 1)
                         {
-                          $tipo = "Administrador";
+                          $tipoT = "Administrador";
                         }
-                 
+                //Obtener variables para enviar el Modal
+                 $id = $u->id_user;
+                 $nickname = $u->nickname;
+                 $nombre = $u->nombre;
+                 $apellido_paterno = $u->apellido_paterno;
+                 $apellido_materno = $u->apellido_materno;
+                 $direccion = $u->direccion;
+                 $telefono = $u->telefono;
+                 $correo = $u->correo;
+                 $tipo = $u->tipo;
+                 $status = $u->status;
+                 $password = $u->password;
 
-                echo "<tr>
+             echo "<tr>
                       <td>$u->nickname</td>
                       <td>$u->nombre". " "."$u->apellido_paterno". " "."$u->apellido_materno</td>
                       <td>$u->direccion</td>
                       <td>$u->telefono</td>
                       <td>$u->correo</td>
-                      <td>$status</td>
-                      <td>$tipo</td>
-                       </tr>";
+                      <td>$statusT.$status</td>
+                      <td>$tipoT</td>
+                      
+                      <td><a title='Editar Información' data-toggle='modal' data-target='#edit_user_modal' onclick='javascript:TratarModeDialog($id,\"".$nickname."\",\"".$nombre."\",\"".$apellido_paterno."\",\"".$apellido_materno."\",\"".$direccion."\",\"".$telefono."\",\"".$correo."\",\"".$password."\",$status,$tipo);' ><span class='badge badge-pill badge-default'><img src='./icons/edit_user.svg' style='width:25px; height:25px;' /></span></a></td>
+
+                    </tr>";
                   }
                 ?>
               </tbody>
@@ -240,11 +316,14 @@ $users = $controller_usuarios->getAllUsers();
 
 
     </div>
+
+
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
-      <!--Footer y  Cerrar Sesión Modal-->
+      <!--Footer y  Modales-->
     <?php
     include ("footer.php");
+    include ("modales.php");
     ?>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

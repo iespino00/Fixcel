@@ -45,7 +45,7 @@
       <ul class="navbar-nav ml-auto">
         
         <li class="nav-item">
-          <button type="button" class="btn btn-warning">Hacer corte del día</button>
+         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#corte_modal">Hacer corte del día</button></a>
         <br>
        </li>
 
@@ -62,7 +62,7 @@
           </form>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+          <a class="nav-link" data-toggle="modal" data-target="#logout_modal">
             <i class="fa fa-fw fa-sign-out"></i>Cerrar Sesión</a>
         </li>
       </ul>

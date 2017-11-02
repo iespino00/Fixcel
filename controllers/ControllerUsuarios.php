@@ -58,6 +58,7 @@ class ControllerUsuarios
         {
             // do something with $row
             $itm = new Usuarios();
+            $itm->id_user = $row['id_user'];
             $itm->nickname = $row['nickname'];
             $itm->nombre = $row['nombre'];
             $itm->apellido_paterno = $row['apellido_paterno'];
@@ -67,8 +68,8 @@ class ControllerUsuarios
             $itm->correo = $row['correo'];
             $itm->status = $row['status'];
             $itm->tipo = $row['tipo'];
-             
-
+            $itm->password = $row['password'];
+            
             $array[$ind] = $itm;
             $ind++;
         }
