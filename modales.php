@@ -110,7 +110,7 @@
                 <center><label for="exampleInputPassword1">Password:</label></center>
                 <input class="form-control" id="passwordMD" name="passwordMD" type="password" placeholder="Password">
               </div>
-              <p><input type='text' placeholder='id' id='idMD' name='idMD' required></p>
+              <p><input type='text' placeholder='id' id='idMD' name='idMD' style='visibility:hidden' required></p>
             </div>
                               
             <!--  <center><button type='submit' class='button small special' id='update' name='update'>Actualizar</button></center>-->
