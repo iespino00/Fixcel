@@ -77,26 +77,62 @@ class ControllerUsuarios
         return $array;
     }
 
-
-     public function update_user($npersonal,$password)
+ 
+     public function update_user($objUser)
     {
 
         //encryptamos la contraseña
         //$password = $this->encriptar_AES("APA91?%3$$",$password);
        
-        $stmt = $this->pdo->prepare('update usuarios set password = (AES_ENCRYPT(:password,"set")) where npersonal = :npersonal');
+        $stmt = $this->pdo->prepare('update usuarios set nickname = :nickname,
+                                                         password = :password,
+                                                         nombre   = :nombre,
+                                                         apellido_paterno = :apellido_paterno,
+                                                         apellido_materno = :apellido_materno,
+                                                         direccion = :direccion,
+                                                         telefono = :telefono,
+                                                         correo = :correo,
+                                                         status = :status,
+                                                         tipo = :tipo
+                                                         where id_user=:id_user');
 
-        $result = $stmt->execute(
-                            array('npersonal' => $npersonal,'password' => $password ) );
+        $stmt->execute(
+            array(  'id_user' => $objUser->id_user,
+                    'nickname' => $objUser->nickname,
+                    'password' => $objUser->password,
+                    'nombre' => $objUser->nombre,
+                    'apellido_paterno' => $objUser->apellido_paterno,
+                    'apellido_materno' => $objUser->apellido_materno,
+                    'direccion' => $objUser->direccion,
+                    'telefono' => $objUser->telefono,
+                    'correo' => $objUser->correo,
+                    'status' => $objUser->status,
+                    'tipo' => $objUser->tipo,
+                 ) );  
+                          
+             if($stmt)
+                {
+                 $result = 1;
+                }else{
+                     return 0;                   
+                     }
+    }
 
-        $res = false;
+        public function delete_user($id_user)
+    {
 
-        if($result)
-        {
-            $res = true;
-        }
-        
-        return $res;
+        $stmt = $this->pdo->prepare('Delete from usuarios where id_user =:id_user');
+
+        $stmt->execute(
+                            array('id_user' => $id_user
+                                 ) 
+                                 );
+           if($stmt)
+                {
+                 $result = 1;
+                }else{
+                     return 0;                   
+                     }
     }
 
 }

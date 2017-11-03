@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2017 a las 01:26:16
+-- Tiempo de generación: 03-11-2017 a las 01:29:08
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -140,8 +140,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_user`, `nickname`, `password`, `nombre`, `apellido_paterno`, `apellido_materno`, `direccion`, `telefono`, `correo`, `status`, `tipo`, `fecha_alta_usuario`) VALUES
-(2, 'empleado', 0x30, 'Nombre empleado', 'paterno empleado', 'materno empleado', 'direccion empleado', '6764455264', 'empleado@gmail.com', 1, 0, '2017-10-31 23:45:31'),
-(3, 'psanchez', 0x30, 'Pedro', 'sanchez', 'perez', 'imparcial', '993894958', 'pedro@fixcel.com', 1, 0, '2017-10-31 22:01:41');
+(1, 'iespino', 0x646576, 'Ignacio', 'Espino', 'Rivera', 'Mariano', '8539911475', 'iespino69@gmail.com', 1, 1, '2017-11-03 00:20:05'),
+(3, 'ecardenas', 0x656d6572, 'Emerson', 'Cardenas', 'Casas', 'Imparcial', '789547895', 'emerson@gmail.com', 1, 0, '2017-11-03 00:22:09');
 
 -- --------------------------------------------------------
 

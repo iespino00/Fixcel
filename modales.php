@@ -89,7 +89,7 @@
 
                   <div class="col-md-6">
                     <center><label for="exampleSelect1">Tipo de Usuario:</label></center>
-                    <select class="form-control" id="tipoMD" name="tipo">
+                    <select class="form-control" id="tipoMD" name="tipoMD">
                       <option value="0">Empleado</option>
                       <option value="1">Administrador</option>
                     </select>
@@ -110,7 +110,7 @@
                 <center><label for="exampleInputPassword1">Password:</label></center>
                 <input class="form-control" id="passwordMD" name="passwordMD" type="password" placeholder="Password">
               </div>
-              <p><input type='text' placeholder='id' id='idMD' name='idMD' style='visibility:hidden' required></p>
+              <p><input type='text' placeholder='id' id='id_userMD' name='id_userMD' style='visibility:hidden' required></p>
             </div>
                               
             <!--  <center><button type='submit' class='button small special' id='update' name='update'>Actualizar</button></center>-->
@@ -119,6 +119,32 @@
             <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
               <a ><button type='submit' class='btn btn-primary btn-danger' id='update' name='update'>Actualizar</button></a>
+             <!-- <a class="btn btn-primary btn-danger" href="#">Si</a>-->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+       <!-- MODAL DELETE USUARIOS-->
+
+   <div class="modal fade" id="delete_user_modal" tabindex="-1" role="dialog" aria-labelledby="edit_user_modallLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <center><h5 class="modal-title" id="edit_user_modallLabel">Seguro que deseas eliminar el Usuario</h5></center>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <form name="update" action='altas_empleados.php'  method='POST' enctype='multipart/form-data'>
+              <div class="card-body">
+               <p><input type='text' placeholder='id' id='id_userMDD' name='id_userMDD' style='visibility:hidden' required></p>
+              </div>
+                    
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+              <a ><button type='submit' class='btn btn-primary btn-danger' id='delete' name='delete'>SI</button></a>
              <!-- <a class="btn btn-primary btn-danger" href="#">Si</a>-->
             </div>
           </form>

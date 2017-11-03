@@ -16,7 +16,7 @@ class Usuarios
      public $status;
      public $tipo;
 
-
+ 
    // constructor
     function __construct() 
     {

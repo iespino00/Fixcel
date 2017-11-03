@@ -3,6 +3,7 @@
 
 // session_start();
  require_once 'header.php';
+ require_once 'models/Usuarios.php';
  error_reporting(E_ALL ^ E_WARNING);
  $nickname =  $_SESSION['nickname'];
  $tipo =  $_SESSION['tipo'];
@@ -12,27 +13,6 @@ require_once 'controllers/ControllerUsuarios.php';
 $controller_usuarios = new ControllerUsuarios();
 
 $users = $controller_usuarios->getAllUsers();
-
-
-if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
-{
-   /* $obj = new Tematicas();
-
-    $obj->id_tematica = $_REQUEST['idMD'];
-    $obj->descripcion_tematica = $_REQUEST['tematicaMD'];
-
-    $formulario = $controlador->actualizarTematica($obj);
-       
-    if($formulario)//si x trae 1 quiere decir que
-      {  
-      
-      echo "<script type='text/javascript'>location.href='registro_tematicas.php';</script>";
-      }           
-      */
-       echo "<script type='text/javascript'>alert('Presionado');</script>";
-}
-
-
 
 ?>
 
@@ -59,45 +39,45 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
 
   <script>
  function validaNum(e)
- {
+    {
      var keynum = window.event ? window.event.keyCode : e.which;
         if ((keynum == 8) || (keynum == 46))
         return true;
          
         return /\d/.test(String.fromCharCode(keynum));
-}
+    }
 
 
-  function ok_empleado_add()
-  {
+  function ok_empleado(title)
+      {
              swal({
-                  title: "Usuario creado con Éxito!",
+                  title: title,
                   timer: 1900,
                   showConfirmButton: false
                });
 
            setTimeout(next, 1000);
-  }
+      }
 
-  function wrong_empleado_add()
-  {
+  function wrong_empleado(title)
+      {
              swal({
-                  title: "Error al crear el Usuario!",
+                  title: title,
                   timer: 1900,
                   showConfirmButton: false
                });
 
            setTimeout(next, 1500);
-  }
+      }
 
   function next()
-  {
-    location.href="altas_empleados.php";
-  }
+      {
+      location.href="altas_empleados.php";
+      }
 
 
      function TratarModeDialog($id,$nickname,$nombre,$apellido_paterno,$apellido_materno,$direccion,$telefono,$correo,$password,$status,$tipo)
-    {
+       {
 
          var id=$id;
          var nickname=$nickname;
@@ -111,7 +91,7 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
          var status=$status; 
          var tipo=$tipo;  
              
-       document.getElementById('idMD').value = id;   
+       document.getElementById('id_userMD').value = id;   
        document.getElementById('nicknameMD').value = nickname;
        document.getElementById('nombreMD').value = nombre;
        document.getElementById('apellido_paternoMD').value = apellido_paterno;
@@ -123,11 +103,15 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
        document.getElementById('statusMD').value = status; 
        document.getElementById('tipoMD').value = tipo; 
        
-    }
+        }
+
+    function TratarModeDialogDelete($id)
+       {
+       var id=$id;
+       document.getElementById('id_userMDD').value = id;  
+       }
 
 </script>
-
-
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -137,8 +121,7 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
 
        
  if( isset($_POST['registrar']) ) 
-{
-    //echo '<script>alert ("'.$_REQUEST['password'].'");</script>';
+   {
      $resultado = $controller_usuarios->crear_empleado($_REQUEST['nickname'],
                                               $_REQUEST['password'],
                                               $_REQUEST['nombre'],
@@ -148,29 +131,74 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
                                               $_REQUEST['telefono'],
                                               $_REQUEST['correo'],
                                               $_REQUEST['tipo']
-                                             
-                                             );
+                                                      );
       if($resultado)
-      {
-          echo '<script>ok_empleado_add();</script>';
-     
-      }
-      else
-      {
-          echo '<script>wrong_empleado_add();</script>';
-  
-      }
-} 
+        {
+        $msgCreateOK = "Usuario creado con Éxito!";
+        echo '<script>ok_empleado("'.$msgCreateOK.'");</script>'; 
+        }
+        else
+            {
+              $msgCreateKO = "Error al crear el Usuario!";
+              echo '<script>wrong_empleado("'.$msgAccesoOK.'");</script>';
+            }
+   } 
 
 
+    if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
+      {
+
+        $objUser = new Usuarios();
+
+        $objUser->id_user = $_REQUEST['id_userMD'];
+        $objUser->nickname = $_REQUEST['nicknameMD'];
+        $objUser->nombre = $_REQUEST['nombreMD'];
+        $objUser->apellido_paterno = $_REQUEST['apellido_paternoMD'];
+        $objUser->apellido_materno = $_REQUEST['apellido_maternoMD'];
+        $objUser->direccion = $_REQUEST['direccionMD'];
+        $objUser->telefono = $_REQUEST['telefonoMD'];
+        $objUser->correo = $_REQUEST['correoMD'];
+        $objUser->password = $_REQUEST['passwordMD'];
+        $objUser->status = $_REQUEST['statusMD'];
+        $objUser->tipo = $_REQUEST['tipoMD'];
+
+        $update = $controller_usuarios->update_user($objUser);
+           
+        if($update = 1)//si x trae 1 quiere decir que
+          {  
+              $msgUpdateOK = "Datos Actualizados con Éxito!";
+              echo '<script>ok_empleado("'.$msgUpdateOK.'");</script>';
+          }
+          else{
+              $msgUpdateKO = "Error al Actualizar Información!";
+              echo '<script>ok_empleado("'.$msgUpdateKO.'");</script>';
+              }                     
+    }
+
+     if( isset($_POST['delete'])) //Si preciono Eliminar en el Modal
+      {
+
+        $id_user = $_REQUEST['id_userMDD'];
+      
+        $delete = $controller_usuarios->delete_user($id_user);
+           
+        if($delete = 1)//si x trae 1 quiere decir que
+          {  
+              $msgUpdateOK = "Usuario eliminado con Éxito!";
+              echo '<script>ok_empleado("'.$msgUpdateOK.'");</script>';
+          }
+          else{
+              $msgUpdateKO = "Error al Eliminar Usuario!";
+              echo '<script>ok_empleado("'.$msgUpdateKO.'");</script>';
+              }                     
+    }
       ?>
 
   <div class="content-wrapper">
     <div class="container-fluid">
 
-
         <!-- inicia div de registro de usuarios-->
-     <center><div class="card-header">Registrar un Empleado</div></center>
+     <center><div class="card-header">Registrar un Empleado <img src="./icons/addUser.svg" style="width:23px; height:23px;" /></div></center>
           <div class="card-body">
            <form action="altas_empleados.php" method="post"  data-ajax="false">
 
@@ -228,7 +256,6 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
          </div>
            <hr class="my-4">
        <!-- termina div de registro de usuarios-->
-
 
           <!-- INICIA DIV DE TABLA-->
       <div class="card mb-3">
@@ -299,10 +326,16 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
                       <td>$u->direccion</td>
                       <td>$u->telefono</td>
                       <td>$u->correo</td>
-                      <td>$statusT.$status</td>
+                      <td>$statusT</td>
                       <td>$tipoT</td>
                       
-                      <td><a title='Editar Información' data-toggle='modal' data-target='#edit_user_modal' onclick='javascript:TratarModeDialog($id,\"".$nickname."\",\"".$nombre."\",\"".$apellido_paterno."\",\"".$apellido_materno."\",\"".$direccion."\",\"".$telefono."\",\"".$correo."\",\"".$password."\",$status,$tipo);' ><span class='badge badge-pill badge-default'><img src='./icons/edit_user.svg' style='width:25px; height:25px;' /></span></a></td>
+                      <td>
+                         <a title='Editar Información' data-toggle='modal' data-target='#edit_user_modal' onclick='javascript:TratarModeDialog($id,\"".$nickname."\",\"".$nombre."\",\"".$apellido_paterno."\",\"".$apellido_materno."\",\"".$direccion."\",\"".$telefono."\",\"".$correo."\",\"".$password."\",$status,$tipo);' ><span class='badge badge-pill badge-default'><img src='./icons/edit_user.svg' style='width:23px; height:23px;' /></span></a>
+
+                          <a title='Eliminar Usuario' data-toggle='modal' data-target='#delete_user_modal' onclick='javascript:TratarModeDialogDelete($id);' ><span class='badge badge-pill badge-default'><img src='./icons/delete.svg' style='width:23px; height:23px;' /></span></a>
+                      </td>
+
+                      
 
                     </tr>";
                   }
@@ -311,12 +344,10 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
             </table>
           </div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <center><div class="card-footer small text-muted">Presiona la tecla F5 Para actualizar la tabla</div></center>
       </div> <!--TERMINA DIV DE TABLA -->
 
-
     </div>
-
 
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
@@ -330,7 +361,6 @@ if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
       <i class="fa fa-angle-up"></i>
     </a>
   
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -36,10 +36,10 @@
 
 <script>
  
-  function alerta(nick_alert)
+  function alerta(nick_alert,title)
   {
              swal({
-                  title: "Bienvenido!",
+                  title: title,
                   text: nick_alert,
                   timer: 1000,
                   showConfirmButton: false
@@ -48,10 +48,10 @@
            setTimeout(next, 1000);
   }
 
-    function alerta_wrong()
+    function alerta_wrong(title)
   {
              swal({
-                  title: "Usuario o contraseña no válida!",
+                  title: title,
                   timer: 1000,
                   showConfirmButton: false
                });
@@ -90,12 +90,13 @@
              $_SESSION['nickname'] = $auth->nickname;
              $_SESSION['tipo'] = $auth->tipo;
              $_SESSION['status'] = $_SESSION['tipo'] ;
-
-        echo '<script>alerta ("'.$auth->nickname.'");</script>';
-     //    echo "<script type='text/javascript'>location.href='panel.php';</script>";
+             $msgAccesoOK = "Bienvenido";
+        echo '<script>alerta ("'.$auth->nickname.'","'.$msgAccesoOK.'");</script>';
+   
         }
         else{
-                echo '<script>alerta_wrong();</script>';
+              $msgAccesoKO= "Usuario o contraseña no válidos";
+                echo '<script>alerta_wrong("'.$msgAccesoKO.'");</script>';
               
             }
 
