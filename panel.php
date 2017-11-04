@@ -44,6 +44,7 @@
           <h1>PANEL DE VENTAS</h1>
           <p>Este es un ejemplo de una página en blanco aqui irá el contenido depende de lo que selecciones.<?php echo  $tipo ; ?></p>
         </div>
+
       </div>
     </div>
     <!-- /.container-fluid-->

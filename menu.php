@@ -14,20 +14,28 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Catálogos">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-file"></i>
-            <span class="nav-link-text">Catálogos (Altas)</span>
+            <span class="nav-link-text"><b>Catálogos (Altas)</b></span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">
             <li>
               <a href="altas_empleados.php">Empleados</a>
             </li>
             <li>
-              <a href="register.html">Categoria de productos</a>
+              <a href="altas_categorias.php">Categoria de productos</a>
             </li>
             <li>
-              <a href="forgot-password.html">Subcategoria de productos</a>
+              <a href="altas_subCategorias.php">Subcategoria de productos</a>
             </li>
          </ul>
       </li>
+
+
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reportes">
+          <a class="nav-link" href="#">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text"><b>Reportes</b></span>
+          </a>
+        </li>
       
      <?php
         }
@@ -45,7 +53,7 @@
       <ul class="navbar-nav ml-auto">
         
         <li class="nav-item">
-         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#corte_modal">Hacer corte del día</button></a>
+         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#corte_modal"><b>Hacer corte del día</b></button></a>
         <br>
        </li>
 
@@ -61,10 +69,24 @@
             </div>
           </form>
         </li>
+        <!--
         <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#logout_modal">
             <i class="fa fa-fw fa-sign-out"></i>Cerrar Sesión</a>
+        </li>    -->
+
+        <li>
+          <div class="btn-group">
+            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Opciones
+            </button>
+             <div class="dropdown-menu dropdown-menu-right">
+                <button class="dropdown-item" type="button">Configuración de la cuenta</button>
+                <a data-toggle="modal" data-target="#logout_modal"> <button class="dropdown-item" type="button">Cerrar Sesión</button></a>
+            </div>
+        </div>
         </li>
+
       </ul>
     </div>
   </nav>

@@ -206,39 +206,39 @@ $users = $controller_usuarios->getAllUsers();
                 <div class="form-row">
                   <div class="col-md-6">
                     <center><label for="exampleInputName">Nombre:</label></center>
-                    <input class="form-control" id="nombre" name="nombre" type="text" aria-describedby="nameHelp" placeholder="Escribe el nombre">
+                    <input class="form-control" id="nombre" name="nombre" type="text" aria-describedby="nameHelp" placeholder="Escribe el nombre" required>
                   </div>
                   <div class="col-md-6">
                     <center><label for="exampleInputLastName">Nickname:</label></center>
-                    <input class="form-control" id="nickname" name="nickname" type="text" aria-describedby="nameHelp" placeholder="Escribe el Nickname">
+                    <input class="form-control" id="nickname" name="nickname" type="text" aria-describedby="nameHelp" placeholder="Escribe el Nickname" required>
                   </div>
                    <div class="col-md-6">
                     <center><label for="exampleInputLastName">Apellido Paterno:</label></center>
-                    <input class="form-control" id="apellido_paterno" name="apellido_paterno" type="text" aria-describedby="nameHelp" placeholder="Escribe el Apellido Paterno">
+                    <input class="form-control" id="apellido_paterno" name="apellido_paterno" type="text" aria-describedby="nameHelp" placeholder="Escribe el Apellido Paterno" required>
                   </div>
                    <div class="col-md-6">
                     <center><label for="exampleInputLastName">Apellido Materno:</label></center>
-                    <input class="form-control" id="apellido_materno" name="apellido_materno" type="text" aria-describedby="nameHelp" placeholder="Escribe el Apellido Materno">
+                    <input class="form-control" id="apellido_materno" name="apellido_materno" type="text" aria-describedby="nameHelp" placeholder="Escribe el Apellido Materno" required>
                   </div>
                   
                    <div class="col-md-6">
                   <center><label for="exampleInputEmail1">Dirección:</label></center>
-                <input class="form-control" id="direccion" name="direccion" type="text" aria-describedby="nameHelp" placeholder="Escribe la dirección">
+                <input class="form-control" id="direccion" name="direccion" type="text" aria-describedby="nameHelp" placeholder="Escribe la dirección" required>
                 </div>
                     
                      <div class="col-md-6">
                  <center><label for="example-tel-input">Telefono:</label></center>
-                    <input class="form-control" id="telefono" name="telefono" type="tel" aria-describedby="telHelp" placeholder="Escribe teléfono" onkeypress="return validaNum(event)" maxlength="10">
+                    <input class="form-control" id="telefono" name="telefono" type="tel" aria-describedby="telHelp" placeholder="Escribe teléfono" onkeypress="return validaNum(event)" maxlength="10" required>
                     </div>
 
                 <div class="col-md-6">
                   <center><label for="exampleInputEmail1">Correo:</label></center>
-                <input class="form-control" id="correo" name="correo" type="email" aria-describedby="emailHelp" placeholder="Escribe el Correo">
+                <input class="form-control" id="correo" name="correo" type="email" aria-describedby="emailHelp" placeholder="Escribe el Correo" required>
                 </div>
 
                   <div class="col-md-6">
                     <center><label for="exampleSelect1">Tipo de Usuario:</label></center>
-                    <select class="form-control" id="tipo" name="tipo">
+                    <select class="form-control" id="tipo" name="tipo" required>
                       <option value="0">Empleado</option>
                       <option value="1">Administrador</option>
                     </select>
@@ -249,7 +249,7 @@ $users = $controller_usuarios->getAllUsers();
 
               <div class="form-group">
                 <center><label for="exampleInputPassword1">Password:</label></center>
-                <input class="form-control" id="password" name="password" type="password" placeholder="Password">
+                <input class="form-control" id="password" name="password" type="password" placeholder="Password" required>
               </div>
           <center> <input type="submit" class="btn btn-success" id="registrar" name="registrar" value="Registrar"> </center>
             </form>
