@@ -1,3 +1,7 @@
+    
+
+
+
     <!-- MODAL DE CERRAR SESIÓN-->
 
    <div class="modal fade" id="logout_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -145,6 +149,41 @@
             <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
               <a ><button type='submit' class='btn btn-primary btn-danger' id='delete' name='delete'>SI</button></a>
+             <!-- <a class="btn btn-primary btn-danger" href="#">Si</a>-->
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+
+
+         <!-- MODAL MODIFICAR SUBCATEGORIAS-->
+
+   <div class="modal fade" id="edit_subcategoria_modal" tabindex="-1" role="dialog" aria-labelledby="edit_subcategoria_modallLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <center><h5 class="modal-title" id="edit_subcategoria_modallLabel">Modificar Información</h5></center>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <form name="update" action='altas_subcategorias.php'  method='POST' enctype='multipart/form-data'>
+             <center> <div class="card-body">
+                <div class="form-group">
+                    <center><label for="exampleInputName">Descripción Subcategoria:</label></center>
+                    <input class="form-control" id="descripcion_subcategoriaMD" name="descripcion_subcategoriaMD" type="text" aria-describedby="nameHelp" placeholder="Escribe el nombre">
+
+              </div>
+
+              <p><input type='text' placeholder='id' id='id_subcategoriaMD' name='id_subcategoriaMD' style='visibility:hidden' required></p>
+            </div></center>
+                              
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">No</button>
+              <a ><button type='submit' class='btn btn-primary btn-danger' id='update' name='update'>Actualizar</button></a>
              <!-- <a class="btn btn-primary btn-danger" href="#">Si</a>-->
             </div>
           </form>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-11-2017 a las 01:27:56
+-- Tiempo de generación: 06-11-2017 a las 04:09:03
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `anulacion_ventas` (
 CREATE TABLE IF NOT EXISTS `categoria_productos` (
 `id_categoria` int(11) NOT NULL,
   `descripcion_categoria` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Se almacenarán las categorias de los productos por ejemplo: Telefonos, cargad.';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Se almacenarán las categorias de los productos por ejemplo: Telefonos, cargad.';
 
 --
 -- Volcado de datos para la tabla `categoria_productos`
@@ -50,8 +50,9 @@ CREATE TABLE IF NOT EXISTS `categoria_productos` (
 
 INSERT INTO `categoria_productos` (`id_categoria`, `descripcion_categoria`) VALUES
 (1, 'Telefonía'),
-(2, 'Accesorios'),
-(3, 'Cargadores');
+(2, 'Micas'),
+(3, 'Cargadores'),
+(4, 'Fundas');
 
 -- --------------------------------------------------------
 
@@ -121,7 +122,24 @@ CREATE TABLE IF NOT EXISTS `subcategorias_productos` (
 `id_subcategoria` int(11) NOT NULL,
   `descripcion_subcategoria` text COLLATE utf8_unicode_ci NOT NULL,
   `id_categoria` int(11) NOT NULL COMMENT 'fk Tabla:categoria_productos'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `subcategorias_productos`
+--
+
+INSERT INTO `subcategorias_productos` (`id_subcategoria`, `descripcion_subcategoria`, `id_categoria`) VALUES
+(1, 'Iphone 6s Plus 16 GB', 1),
+(2, 'Iphone X 128 GB', 1),
+(3, 'Iphone 6 16 GB', 1),
+(4, 'LG G6 32 GB', 1),
+(5, 'Iphone 4', 3),
+(6, 'Para teléfonos Android', 3),
+(7, 'LG G5', 1),
+(8, 'Motorola G5', 1),
+(9, 'Samsung s7', 1),
+(10, 'Samsung s8', 1),
+(11, 'LG G3 Stylus', 1);
 
 -- --------------------------------------------------------
 
@@ -142,15 +160,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `status` int(1) NOT NULL COMMENT '0 = Inactivo, 1= Activo',
   `tipo` int(1) NOT NULL COMMENT '0 = Empleado y 1 = Admin',
   `fecha_alta_usuario` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_user`, `nickname`, `password`, `nombre`, `apellido_paterno`, `apellido_materno`, `direccion`, `telefono`, `correo`, `status`, `tipo`, `fecha_alta_usuario`) VALUES
-(1, 'iespino', 0x646576, 'Ignacio', 'Espino', 'Rivera', 'Mariano E.', '7542255364', 'iespino69@gmail.com', 1, 1, '2017-11-02 15:44:18'),
-(2, 'ecardenas', 0x656d6572, 'Emerson', 'Cardenas', 'Casas', 'Imparcial', '7651155263', 'emerson@gmail.com', 1, 0, '2017-11-04 00:23:53');
+(1, 'iespino', 0x646576, 'Ignacio', 'Espino', 'Rivera', 'Mariano', '8539911475', 'iespino69@gmail.com', 1, 1, '2017-11-03 00:20:05'),
+(3, 'ecardenas', 0x656d6572, 'Emerson', 'Cardenas', 'Casas', 'Imparcial', '789547895', 'emerson@gmail.com', 1, 0, '2017-11-03 00:22:09');
 
 -- --------------------------------------------------------
 
@@ -237,7 +255,7 @@ MODIFY `id_anulacion` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `categoria_productos`
 --
 ALTER TABLE `categoria_productos`
-MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `codigos_barras`
 --
@@ -262,12 +280,12 @@ MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `subcategorias_productos`
 --
 ALTER TABLE `subcategorias_productos`
-MODIFY `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --

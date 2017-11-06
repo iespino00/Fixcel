@@ -37,7 +37,7 @@ class ControllerCategorias
    
     public function getAllCategorias() 
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM categoria_productos order by id_categoria desc');
+        $stmt = $this->pdo->prepare('SELECT * FROM categoria_productos order by descripcion_categoria asc');
 
         $result = $stmt->execute( );
 
@@ -46,7 +46,7 @@ class ControllerCategorias
         foreach ($stmt as $row) 
         {
             // do something with $row
-            $itm = new Usuarios();
+            $itm = new Categorias();
             $itm->id_categoria = $row['id_categoria'];
             $itm->descripcion_categoria = $row['descripcion_categoria'];
           

@@ -90,6 +90,7 @@
              $_SESSION['nickname'] = $auth->nickname;
              $_SESSION['tipo'] = $auth->tipo;
              $_SESSION['status'] = $_SESSION['tipo'] ;
+             $_SESSION['id_user'] = $_SESSION['id_user'] ;
              $msgAccesoOK = "Bienvenido";
         echo '<script>alerta ("'.$auth->nickname.'","'.$msgAccesoOK.'");</script>';
    

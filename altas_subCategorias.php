@@ -4,6 +4,7 @@
 // session_start();
  require_once 'header.php';
  require_once 'models/Categorias.php';
+ require_once 'models/Subcategorias.php';
  error_reporting(E_ALL ^ E_WARNING);
  $nickname =  $_SESSION['nickname'];
  $tipo =  $_SESSION['tipo'];
@@ -11,8 +12,12 @@
 
 require_once 'controllers/ControllerCategorias.php';
 $controller_categorias = new ControllerCategorias();
-
 $categorias = $controller_categorias->getAllCategorias();
+
+require_once 'controllers/ControllerSubcategorias.php';
+$controller_Subcategorias = new ControllerSubcategorias();
+$subcategorias = $controller_Subcategorias->getAllSubcategorias();
+
 
 ?>
 
@@ -47,8 +52,8 @@ $categorias = $controller_categorias->getAllCategorias();
         return /\d/.test(String.fromCharCode(keynum));
     }
 
-
-  function ok_empleado(title)
+ 
+  function ok(title)
       {
              swal({
                   title: title,
@@ -59,22 +64,23 @@ $categorias = $controller_categorias->getAllCategorias();
            setTimeout(next, 1000);
       }
 
-  function wrong_empleado(title)
-      {
-             swal({
-                  title: title,
-                  timer: 1900,
-                  showConfirmButton: false
-               });
-
-           setTimeout(next, 1500);
-      }
-
 
   function next()
       {
       location.href="altas_subCategorias.php";
       }
+
+
+   function TratarModeDialog($id_subcategoria,$descripcion_subcategoria)
+       {
+
+         var id_subcategoria=$id_subcategoria;
+         var descripcion_subcategoria=$descripcion_subcategoria;
+             
+       document.getElementById('id_subcategoriaMD').value = id_subcategoria;   
+       document.getElementById('descripcion_subcategoriaMD').value = descripcion_subcategoria;
+       }
+
 
 </script>
 </head>
@@ -85,22 +91,47 @@ $categorias = $controller_categorias->getAllCategorias();
         include("menu.php");
 
        
- if( isset($_POST['registrar']) ) 
-   {
+      if( isset($_POST['registrar']) ) 
+        {
 
-          $resultado = $controller_categorias->crear_categorias($_REQUEST['descripcion_categoria']);
+          $resultado = $controller_Subcategorias->crear_subcategorias($_REQUEST['descripcion_subcategoria'],$_REQUEST['id_categoria']);
           if($resultado = 1)
             {
-            $msgCreateOK = "Categoria creada con Éxito!";
-            echo '<script>ok_empleado("'.$msgCreateOK.'");</script>'; 
+            $msgCreateOK = "Subcategoría creada con Éxito!";
+            echo '<script>ok("'.$msgCreateOK.'");</script>'; 
             }
             else
                 {
-                  $msgCreateKO = "Error al crear la Categoria!";
-                  echo '<script>wrong_empleado("'.$msgAccesoOK.'");</script>';
+                  $msgCreateKO = "Error al crear la Subcategoria!";
+                  echo '<script>ok("'.$msgAccesoOK.'");</script>';
                 }
 
-   } 
+        } 
+     
+    if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
+          {
+
+        $objSubcategorias = new Subcategorias();
+
+        $objSubcategorias->id_subcategoria = $_REQUEST['id_subcategoriaMD'];
+        $objSubcategorias->descripcion_subcategoria = $_REQUEST['descripcion_subcategoriaMD'];
+       
+
+        $update = $controller_Subcategorias->update_subcategoria($objSubcategorias);
+           
+        if($update = 1)//si x trae 1 quiere decir que
+          {  
+              $msgUpdateOK = "Datos Actualizados con Éxito!";
+              echo '<script>ok("'.$msgUpdateOK.'");</script>';
+          }
+          else{
+              $msgUpdateKO = "Error al Actualizar Información!";
+              echo '<script>ok("'.$msgUpdateKO.'");</script>';
+              }                     
+        }
+
+
+
       ?>
 
   <div class="content-wrapper">
@@ -110,11 +141,26 @@ $categorias = $controller_categorias->getAllCategorias();
      <center><div class="card-header">Registrar una Subcategorias</div></center>
           <div class="card-body">
            <form action="altas_subCategorias.php" method="post"  data-ajax="false">
-
-
               <div class="form-group">
+                   <center>
+                    <center><label for="exampleSelect1">Categoria:</label></center>
+                    <select class="form-control" id="id_categoria" name="id_categoria" required>
+                    <option value="">Selecciona una opción</option>
+                      <?php
+                      foreach ($categorias as $c)
+                       {
+                            
+                       echo '
+                            <option value="'.$c->id_categoria.'">'.$c->descripcion_categoria.'</option> 
+                            '; 
+                       }
+                       ?>
+                    
+                    </select>
+                    </center>
+             
                 <center><label for="exampleInputPassword1">Descripción de la Categoría:</label></center>
-                <input class="form-control" id="descripcion_categoria" name="descripcion_categoria" type="text" placeholder="Categoría" required>
+                <input class="form-control" id="descripcion_subcategoria" name="descripcion_subcategoria" type="text" placeholder="Categoría" required>
               </div>
 
           <center> <input type="submit" class="btn btn-success" id="registrar" name="registrar" value="Registrar"> </center>
@@ -127,32 +173,39 @@ $categorias = $controller_categorias->getAllCategorias();
           <!-- INICIA DIV DE TABLA-->
       <div class="card mb-3">
         <center><div class="card-header">
-          <i class="fa fa-table"></i> Catálogo de Categorías</div></center>
+          <i class="fa fa-table"></i> Catálogo de Subcategorías</div></center>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Descripción</th>
-                  
+                  <th><center>ID</center></th>
+                   <th><center>Categoría</center></th>
+                  <th><center>Descripción Subcategoria</center></th>
+                  <th><center>Acción</center></th>     
                 </tr>
               </thead>
               <tfoot>
                 <tr>
-                  <th>ID</th>
-                  <th>Descripción</th>
+                  <th><center>ID</center></th>
+                   <th><center>Categoría</center></th>
+                  <th><center>Descripción Subcategoria</center></th>
+                  <th><center>Acción</center></th>  
                 </tr>
               </tfoot>
               <tbody>
               <?php
-                  foreach ($categorias as $u)
+                  foreach ($subcategorias as $s)
                   {
-
+                      $id_subcategoria = $s->id_subcategoria;
+                      $descripcion_subcategoria = $s->descripcion_subcategoria;
 
              echo "<tr>
-                      <td>$u->id_categoria</td>
-                      <td>$u->descripcion_categoria</td>
+                      <td><center>$s->id_subcategoria</center></td>
+                      <td><center>$s->descripcion_categoria</center></td>
+                      <td>$s->descripcion_subcategoria</td>
+                      <td>
+                         <center><a title='Editar Información' data-toggle='modal' data-target='#edit_subcategoria_modal' onclick='javascript:TratarModeDialog($id_subcategoria,\"".$descripcion_subcategoria."\");' ><span class='badge badge-pill badge-default'><img src='./icons/edit_user.svg' style='width:23px; height:23px;' /></span></a></center>
                  </tr>";
                   }
                 ?>

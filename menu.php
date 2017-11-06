@@ -26,6 +26,9 @@
             <li>
               <a href="altas_subCategorias.php">Subcategoria de productos</a>
             </li>
+            <li>
+              <a href="#">Productos</a>
+            </li>
          </ul>
       </li>
 
@@ -34,6 +37,13 @@
           <a class="nav-link" href="#">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text"><b>Reportes</b></span>
+          </a>
+        </li>
+
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Stock de productos">
+          <a class="nav-link" href="#">
+            <i class="fa fa-fw fa-area-chart"></i>
+            <span class="nav-link-text"><b>Stock de Productos</b></span>
           </a>
         </li>
       
@@ -81,8 +91,8 @@
               Opciones
             </button>
              <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" type="button">Configuración de la cuenta</button>
-                <a data-toggle="modal" data-target="#logout_modal"> <button class="dropdown-item" type="button">Cerrar Sesión</button></a>
+              <a > <button class="dropdown-item" type="button">Configuración de la cuenta</button></a>
+              <a data-toggle="modal" data-target="#logout_modal"> <button class="dropdown-item" type="button">Cerrar Sesión</button></a>
             </div>
         </div>
         </li>

@@ -133,15 +133,15 @@ $categorias = $controller_categorias->getAllCategorias();
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Descripción</th>
+                  <th><center>ID</center></th>
+                  <th><center>Descripción</center></th>
                   
                 </tr>
               </thead>
               <tfoot>
                 <tr>
-                  <th>ID</th>
-                  <th>Descripción</th>
+                  <th><center>ID</center></th>
+                  <th><center>Descripción</center></th>
                 </tr>
               </tfoot>
               <tbody>

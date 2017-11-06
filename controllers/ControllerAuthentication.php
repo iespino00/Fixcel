@@ -17,7 +17,7 @@ class ControllerAuthentication
   
     function __destruct() 
     {
-         
+          
     }
 
     public function login($nickname, $password) 
