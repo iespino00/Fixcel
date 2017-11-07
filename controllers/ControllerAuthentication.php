@@ -36,6 +36,7 @@ class ControllerAuthentication
             $auth->nickname = $row['nickname'];
             $auth->tipo = $row['tipo'];
             $auth->status = $row['status'];
+             $auth->password = $row['password'];
             
        
             return $auth;

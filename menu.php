@@ -27,7 +27,7 @@
               <a href="altas_subCategorias.php">Subcategoria de productos</a>
             </li>
             <li>
-              <a href="#">Productos</a>
+              <a href="altas_productos.php">Productos</a>
             </li>
          </ul>
       </li>
@@ -91,7 +91,7 @@
               Opciones
             </button>
              <div class="dropdown-menu dropdown-menu-right">
-              <a > <button class="dropdown-item" type="button">Configuración de la cuenta</button></a>
+              <a href="config_cuenta.php"><button class="dropdown-item" type="button"  >Configuración de la cuenta</button></a>
               <a data-toggle="modal" data-target="#logout_modal"> <button class="dropdown-item" type="button">Cerrar Sesión</button></a>
             </div>
         </div>

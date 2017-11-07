@@ -135,6 +135,29 @@ class ControllerUsuarios
                      }
     }
 
+
+         public function change_password($id_user,$password)
+    {
+
+        //encryptamos la contraseña
+        //$password = $this->encriptar_AES("APA91?%3$$",$password);
+       
+        $stmt = $this->pdo->prepare('update usuarios set password = :password
+                                                         where id_user=:id_user');
+
+        $stmt->execute(
+            array(  'id_user' => $id_user,
+                    'password' => $password
+                 ) );  
+                          
+             if($stmt)
+                {
+                 $result = 1;
+                }else{
+                     return 0;                   
+                     }
+    }
+
 }
  
 ?>
