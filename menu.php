@@ -13,43 +13,46 @@
       ?>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Catálogos">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file"></i>
+            <i class="fa fa-cubes"></i>
             <span class="nav-link-text"><b>Catálogos (Altas)</b></span>
           </a>
           <ul class="sidenav-second-level collapse" id="collapseExamplePages">
             <li>
-              <a href="altas_empleados.php">Empleados</a>
+              <a href="altas_empleados.php" class="fa fa-user-circle-o"> Empleados</a>
             </li>
             <li>
-              <a href="altas_categorias.php">Categoria de productos</a>
+              <a href="altas_categorias.php" class="fa fa-list-alt"> Categoria de productos</a>
             </li>
             <li>
-              <a href="altas_subCategorias.php">Subcategoria de productos</a>
+              <a href="altas_subCategorias.php" class="fa fa-list-ul"> Subcategoria de productos</a>
             </li>
             <li>
-              <a href="altas_productos.php">Productos</a>
+              <a href="altas_productos.php" class="fa fa-barcode" > Productos</a>
             </li>
          </ul>
       </li>
 
 
       <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reportes">
-          <a class="nav-link" href="#">
+          <a class="nav-link" href="reportes.php">
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text"><b>Reportes</b></span>
           </a>
         </li>
-
-      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Stock de productos">
-          <a class="nav-link" href="#">
-            <i class="fa fa-fw fa-area-chart"></i>
-            <span class="nav-link-text"><b>Stock de Productos</b></span>
-          </a>
-        </li>
-      
+     
      <?php
         }
+      if($_SESSION['tipo'] == 0)
+       {?>
+              <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Stock de productos">
+                 <a class="nav-link" href="stock_report.php">
+                  <i class="fa fa-fw fa-table"></i>
+                  <span class="nav-link-text"><b>Stock de Productos</b></span>
+                </a>
+              </li>
+      <?php }
       ?>
+
 
       </ul>
 
