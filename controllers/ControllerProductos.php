@@ -26,7 +26,6 @@ class ControllerProductos
                                      inner join stock
                                      on productos.id_producto = stock.id_producto
                                      order by productos.id_producto asc');
-
         $result = $stmt->execute( );
 
         $array = array();
@@ -53,30 +52,86 @@ class ControllerProductos
     }     //Termina GetAllProductos
       
 
+    
+        public function get_x_surtir() //Inicia get_x_surtir
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM productos
+                                     inner join subcategorias_productos
+                                     on productos.id_subcategoria = subcategorias_productos.id_subcategoria
+                                     inner join categoria_productos
+                                     on subcategorias_productos.id_categoria = categoria_productos.id_categoria
+                                     inner join stock
+                                     on productos.id_producto = stock.id_producto
+                                     order by productos.id_producto asc');
+        $result = $stmt->execute( );
+
+        $array = array();
+        $ind = 0;
+        foreach ($stmt as $row) 
+        {
+            $itm = new Productos();
+            $itm->id_producto = $row['id_producto'];
+            $itm->descripcion_subcategoria = $row['descripcion_subcategoria'];
+            $itm->descripcion_categoria = $row['descripcion_categoria'];
+            $itm->descripcion_producto = $row['descripcion_producto'];
+            $itm->stock_seguridad = $row['stock_seguridad'];
+            $itm->stock_disponible = $row['stock_disponible'];
+
+            if($row['stock_disponible']<=$row['stock_seguridad'])
+            {
+               $array[$ind] = $itm;
+            }
+          $ind++;
+        }
+
+        return $array;
+    }     //Termina get_x_surtir
 
 
-    public function crear_productos($descripcion_categoria) //Inicia GetAllProductos
+    public function crear_productos($objProducto) //Inicia crear_productos
     {
 
         //encryptamos la contraseña
         //$password = $this->encriptar_AES("APA91?%3$$",$password);
        
-        $stmt = $this->pdo->prepare('insert into categoria_productos (descripcion_categoria) values(:descripcion_categoria)');
+        $stmt = $this->pdo->prepare('insert into productos (id_subcategoria,descripcion_producto,costo_unitario,costo_proveedor,stock_seguridad) values(:id_subcategoria,:descripcion_producto,:costo_unitario,:costo_proveedor,:stock_seguridad)');
 
                    $stmt->execute(
-                            array('descripcion_categoria' => $descripcion_categoria
+                            array(
+                                   'id_subcategoria' => $objProducto->id_subcategoria,
+                                   'descripcion_producto' => $objProducto->descripcion_producto,
+                                   'costo_unitario' => $objProducto->costo_unitario,
+                                   'costo_proveedor' => $objProducto->costo_proveedor,
+                                   'stock_seguridad' => $objProducto->stock_seguridad
                                  ) 
                                  );
         if($stmt)
-                {
-                 $result = 1;
+                { 
+                      $LastId = $this->pdo->lastInsertId();
+
+                      $stmt2 = $this->pdo->prepare('insert into stock (id_producto,stock_disponible) values(:id_producto,:stock_disponible)');  
+                      $stmt2->execute(array(
+                                   'id_producto' => $LastId,
+                                   'stock_disponible' => $objProducto->stock_disponible
+                                          ));
+                      if($stmt2)
+                      {
+                       $result = 1;
+                      }
+
+                
                 }else{
                      return 0;                   
                      }
+
+
     }      //Termina CrearProductos
    
 
+      function crear_stock($objProducto,$LastId)
+       {
 
+       }
 
 }
  

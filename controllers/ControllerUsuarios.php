@@ -77,7 +77,7 @@ class ControllerUsuarios
         return $array;
     }
 
- 
+  
      public function update_user($objUser)
     {
 

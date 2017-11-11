@@ -201,7 +201,7 @@ $users = $controller_usuarios->getAllUsers();
      <center><div class="card-header">Registrar un Empleado <img src="./icons/addUser.svg" style="width:23px; height:23px;" /></div></center>
           <div class="card-body">
            <form action="altas_empleados.php" method="post"  data-ajax="false">
-
+ 
               <div class="form-group">
                 <div class="form-row">
                   <div class="col-md-6">

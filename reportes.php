@@ -23,7 +23,7 @@ $productos = $controller_productos->getAllProductos();
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>FIXCEL | Productos con Stock de Seguridad </title>
+  <title>FIXCEL | Reportes </title>
   <link rel="shortcut icon" href="Images/login.png">
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -61,7 +61,7 @@ $productos = $controller_productos->getAllProductos();
                       </div>
                       <div class="mr-5">Stock de Productos</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="stock_report.php">
                       <span class="float-left">Ver Reporte</span>
                       <span class="float-right">
                         <i class="fa fa-angle-right"></i>
@@ -78,7 +78,7 @@ $productos = $controller_productos->getAllProductos();
                       </div>
                       <div class="mr-5">Productos con necesidad de Surtir!</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="stock_seg_report.php">
                       <span class="float-left">Ver Reporte</span>
                       <span class="float-right">
                         <i class="fa fa-angle-right"></i>

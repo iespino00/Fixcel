@@ -10,7 +10,7 @@
 require_once 'controllers/ControllerProductos.php';
 $controller_productos = new ControllerProductos();
 
-$productos = $controller_productos->getAllProductos();
+$productos = $controller_productos->get_x_surtir();
 
 ?>
 
@@ -65,7 +65,8 @@ $productos = $controller_productos->getAllProductos();
                   <th><center>Descripción</center></th>
                   <th><center>Categoria</center></th>
                   <th><center>Subcategoría</center></th>
-                  <th><center>Stock de Disponible</center></th>
+                  <th><center>Stock de Seguridad</center></th>
+                  <th><center>Stock Disponible</center></th>
                   
                   
                 </tr>
@@ -76,7 +77,8 @@ $productos = $controller_productos->getAllProductos();
                   <th><center>Descripción</center></th>
                   <th><center>Categoria</center></th>
                   <th><center>Subcategoría</center></th>
-                  <th><center>Stock de Disponible</center></th>
+                  <th><center>Stock de Seguridad</center></th>
+                  <th><center>Stock Disponible</center></th>
                 
 
                </tr>
@@ -92,7 +94,8 @@ $productos = $controller_productos->getAllProductos();
                       <td>$p->descripcion_producto</td>
                       <td><center>$p->descripcion_categoria</center></td>
                       <td><center>$p->descripcion_subcategoria</center></td>
-                      <td><center>$p->stock_disponible PZ</center></td>
+                      <td><center>$p->stock_seguridad PZ</center></td>
+                       <td><center>$p->stock_disponible PZ</center></td>
                  </tr>";
                   }
                 ?>

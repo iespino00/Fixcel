@@ -1,9 +1,10 @@
 
 <?php
-
+ 
 // session_start();
  require_once 'header.php';
  require_once 'models/Productos.php';
+require_once 'models/Subcategorias.php';
  error_reporting(E_ALL ^ E_WARNING);
  $nickname =  $_SESSION['nickname'];
  $tipo =  $_SESSION['tipo'];
@@ -11,11 +12,13 @@
  
 require_once 'controllers/ControllerProductos.php';
 $controller_productos = new ControllerProductos();
-
 $productos = $controller_productos->getAllProductos();
 
+require_once 'controllers/ControllerSubcategorias.php';
+$controller_subcategorias = new ControllerSubcategorias();
+$subcategorias = $controller_subcategorias->getAllSubcategorias();
 ?>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -76,7 +79,15 @@ $productos = $controller_productos->getAllProductos();
  if( isset($_POST['registrar']) ) 
    {
 
-          $resultado = $controller_productos->crear_productos($_REQUEST['descripcion_categoria']);
+           $objProducto = new Productos();
+           $objProducto->id_subcategoria = $_REQUEST['id_subcategoria'];
+           $objProducto->descripcion_producto = $_REQUEST['descripcion_producto'];
+           $objProducto->costo_unitario = $_REQUEST['costo_unitario'];
+           $objProducto->costo_proveedor = $_REQUEST['costo_proveedor'];
+           $objProducto->stock_seguridad = $_REQUEST['stock_seguridad'];
+           $objProducto->stock_disponible = $_REQUEST['stock_disponible'];
+
+          $resultado = $controller_productos->crear_productos($objProducto);
           if($resultado = 1)
             {
             $msgCreateOK = "Producto creado con Éxito!";
@@ -99,10 +110,49 @@ $productos = $controller_productos->getAllProductos();
           <div class="card-body">
            <form action="altas_productos.php" method="post"  data-ajax="false">
 
-              <div class="form-group">
-                <center><label for="exampleInputPassword1">Descripción del Producto:</label></center>
-                <input class="form-control" id="descripcion_producto" name="descripcion_producto" type="text" placeholder="Descripción" required>
-              </div>
+            <div class="form-group">
+                 <center><label for="exampleSelect1">Subcategoría:</label></center>
+                    <select class="form-control" id="id_subcategoria" name="id_subcategoria" required>
+                    <option value="">Selecciona una opción</option>
+                      <?php
+                      foreach ($subcategorias as $s)
+                       {
+                            
+                       echo '
+                            <option value="'.$s->id_subcategoria.'">'.$s->descripcion_subcategoria.'</option> 
+                            '; 
+                       }
+                       ?>
+                    </select>
+
+                        <center><label for="exampleInputdescripcion">Descripción del Producto:</label></center>
+                        <input class="form-control" id="descripcion_producto" name="descripcion_producto" type="text" placeholder="Descripción" required>
+                 <div class="form-row">
+       
+                      <div class="col-md-6">
+                        <center><label for="exampleInputCostoUnitario">Costo Unitario (El público):</label></center>
+                        <input class="form-control" id="costo_unitario" name="costo_unitario" type="text" placeholder="Costo de Venta" required>
+                     </div>
+
+                     <div class="col-md-6">
+                        <center><label for="exampleInputCostoProveedor">Costo Proveedor:</label></center>
+                        <input class="form-control" id="costo_proveedor" name="costo_proveedor" type="text" placeholder="Costo del Proveedor" required>
+                     </div>
+
+                     <div class="col-md-6">
+                        <center><label for="exampleInputStockSeguridad">Stock de Seguridad:</label></center>
+                        <input class="form-control" id="stock_seguridad" name="stock_seguridad" type="text" placeholder="Stock para reabastecer producto" onkeypress="return validaNum(event)" required>
+                     </div>
+
+                     <div class="col-md-6">
+                        <center><label for="exampleInputstock_disponible">Stock de Actual:</label></center>
+                        <input class="form-control" id="stock_disponible" name="stock_disponible" type="text" placeholder="Stock Actual del producto" onkeypress="return validaNum(event)" required>
+                     </div>
+
+                 </div>
+
+
+            </div>
 
           <center> <input type="submit" class="btn btn-success" id="registrar" name="registrar" value="Registrar"> </center>
             </form>
