@@ -52,7 +52,13 @@
               </li>
       <?php }
       ?>
-
+      
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Imprimir Códigos de Barras">
+          <a class="nav-link" href="print_barcode.php">
+            <i class="fa fa-barcode"></i>
+            <span class="nav-link-text"><b>Códigos de Barras</b></span>
+          </a>
+        </li>
 
       </ul>
 

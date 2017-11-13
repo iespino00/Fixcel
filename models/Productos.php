@@ -14,6 +14,7 @@ class Productos
      public $stock_seguridad;
      public $fecha_registro;
      public $stock_disponible;
+     public $codigo_barras;
    
    // constructor
     function __construct() 

@@ -5,11 +5,14 @@ class ControllerProductos
 {
     private $db;
     private $pdo;
+
+
     function __construct() 
     {
         // connecting to database
         $this->db = new DB_Connect();
         $this->pdo = $this->db->connect();
+
     }
  
     function __destruct() { }
@@ -25,6 +28,8 @@ class ControllerProductos
                                      on subcategorias_productos.id_categoria = categoria_productos.id_categoria
                                      inner join stock
                                      on productos.id_producto = stock.id_producto
+                                     inner join codigos_barras
+                                     on productos.id_producto = codigos_barras.id_producto
                                      order by productos.id_producto asc');
         $result = $stmt->execute( );
 
@@ -42,7 +47,8 @@ class ControllerProductos
             $itm->costo_proveedor = $row['costo_proveedor'];
             $itm->stock_seguridad = $row['stock_seguridad'];
             $itm->fecha_registro = $row['fecha_registro'];
-             $itm->stock_disponible = $row['stock_disponible'];
+            $itm->stock_disponible = $row['stock_disponible'];
+            $itm->codigo_barras = $row['codigo_barras'];
           
             $array[$ind] = $itm;
             $ind++;
@@ -106,32 +112,70 @@ class ControllerProductos
                                  ) 
                                  );
         if($stmt)
-                { 
+                {     //Si se agrega el producto, se añade el stock
                       $LastId = $this->pdo->lastInsertId();
-
                       $stmt2 = $this->pdo->prepare('insert into stock (id_producto,stock_disponible) values(:id_producto,:stock_disponible)');  
                       $stmt2->execute(array(
                                    'id_producto' => $LastId,
                                    'stock_disponible' => $objProducto->stock_disponible
                                           ));
                       if($stmt2)
-                      {
-                       $result = 1;
+                      {     //Si se añade el stock, se genera el codigo de barras del producto
+                           $codigo_barras = str_pad($LastId, 11, "0", STR_PAD_LEFT); 
+                             
+                           $stmt3 = $this->pdo->prepare('insert into codigos_barras (id_producto,codigo_barras) values(:id_producto,:codigo_barras)');  
+                            $stmt3->execute(array(
+                                                  'id_producto' => $LastId,
+                                                  'codigo_barras' => $codigo_barras
+                                          ));
+                              if($stmt3)
+                                {
+                                  $result = 1;
+                                }                         
                       }
 
-                
                 }else{
                      return 0;                   
                      }
 
 
     }      //Termina CrearProductos
-   
+    
 
-      function crear_stock($objProducto,$LastId)
-       {
+     public function update_producto($objProducto)
+        {
+       $stmt = $this->pdo->prepare('update productos set descripcion_producto = :descripcion_producto,
+                                                         costo_unitario = :costo_unitario,
+                                                         costo_proveedor   = :costo_proveedor,
+                                                         stock_seguridad = :stock_seguridad
+                                                   where id_producto=:id_producto');
+        $stmt->execute(
+            array(  'id_producto' => $objProducto->id_producto,
+                    'descripcion_producto' => $objProducto->descripcion_producto,
+                    'costo_unitario' => $objProducto->costo_unitario,
+                    'costo_proveedor' => $objProducto->costo_proveedor,
+                    'stock_seguridad' => $objProducto->stock_seguridad                   
+                 ) );  
+                          
+             if($stmt)
+                {  
 
-       }
+                  $stmt2 = $this->pdo->prepare('update stock set stock_disponible = :stock_disponible
+                                                          where id_producto=:id_producto');
+                    $stmt2->execute(
+                        array(  'id_producto' => $objProducto->id_producto,
+                                'stock_disponible' => $objProducto->stock_disponible                   
+                             ) );  
+                      if($stmt2)
+                      {
+                         $result = 1;
+                      }
+
+                
+                }else{
+                     return 0;                   
+                     }
+      }
 
 }
  

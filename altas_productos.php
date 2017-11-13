@@ -4,7 +4,7 @@
 // session_start();
  require_once 'header.php';
  require_once 'models/Productos.php';
-require_once 'models/Subcategorias.php';
+ require_once 'models/Subcategorias.php';
  error_reporting(E_ALL ^ E_WARNING);
  $nickname =  $_SESSION['nickname'];
  $tipo =  $_SESSION['tipo'];
@@ -67,6 +67,27 @@ $subcategorias = $controller_subcategorias->getAllSubcategorias();
       location.href="altas_productos.php";
       }
 
+
+
+   function EditModeDialog($id_producto,$descripcion_producto,$costo_unitario,$costo_proveedor,$stock_seguridad,$stock_disponible)
+       {
+
+         var id_producto=$id_producto;
+         var descripcion_producto=$descripcion_producto;   
+         var costo_unitario=$costo_unitario;   
+         var costo_proveedor=$costo_proveedor;   
+         var stock_seguridad=$stock_seguridad;   
+         var stock_disponible=$stock_disponible;   
+
+             
+       document.getElementById('id_productoMD').value = id_producto;   
+       document.getElementById('descripcion_productoMD').value = descripcion_producto;
+       document.getElementById('costo_unitarioMD').value = costo_unitario;
+       document.getElementById('costo_proveedorMD').value = costo_proveedor;
+       document.getElementById('stock_seguridadMD').value = stock_seguridad;
+       document.getElementById('stock_disponibleMD').value = stock_disponible;
+       
+        }
 </script>
 </head>
 
@@ -100,6 +121,29 @@ $subcategorias = $controller_subcategorias->getAllSubcategorias();
                 }
 
    } 
+
+   if( isset($_POST['update'])) //Si preciono Actualizar en el Modal
+      {
+        $objProducto = new Productos();
+        $objProducto->id_producto = $_REQUEST['id_productoMD'];
+        $objProducto->descripcion_producto = $_REQUEST['descripcion_productoMD'];
+        $objProducto->costo_unitario = $_REQUEST['costo_unitarioMD'];
+        $objProducto->costo_proveedor = $_REQUEST['costo_proveedorMD'];
+        $objProducto->stock_seguridad = $_REQUEST['stock_seguridadMD'];
+        $objProducto->stock_disponible = $_REQUEST['stock_disponibleMD'];
+
+        $update = $controller_productos->update_producto($objProducto);
+           
+        if($update = 1)//si x trae 1 quiere decir que
+          {  
+              $msgUpdateOK = "Datos Actualizados con Éxito!";
+              echo '<script>ok("'.$msgUpdateOK.'");</script>';
+          }
+          else{
+              $msgUpdateKO = "Error al Actualizar Información!";
+              echo '<script>ok("'.$msgUpdateKO.'");</script>';
+              }                  
+    }
       ?>
 
   <div class="content-wrapper">
@@ -204,8 +248,14 @@ $subcategorias = $controller_subcategorias->getAllSubcategorias();
               <?php
                   foreach ($productos as $p)
                   {
-
-
+                 $id_producto = $p->id_producto;
+                 $id_subcategoria = $p->id_subcategoria;
+                 $descripcion_producto = $p->descripcion_producto;
+                 $costo_unitario = $p->costo_unitario;
+                 $costo_proveedor = $p->costo_proveedor;
+                 $stock_seguridad = $p->stock_seguridad;
+                 $stock_disponible = $p->stock_disponible;
+                 
              echo "<tr>
                       <td><center>$p->id_producto</center></td>
                       <td>$p->descripcion_producto</td>
@@ -215,7 +265,10 @@ $subcategorias = $controller_subcategorias->getAllSubcategorias();
                       <td><center>$ $p->costo_proveedor</center></td>
                       <td><center>$p->stock_disponible PZ</center></td>
                       <td><center>$p->stock_seguridad PZ</center></td>
-                      <td></td>
+                      <td>
+                      <a title='Editar Información' data-toggle='modal' data-target='#edit_prod_modal' onclick='javascript:EditModeDialog($id_producto,\"".$descripcion_producto."\",$costo_unitario,$costo_proveedor,$stock_seguridad,$stock_disponible);'><span class='badge badge-pill badge-default'><img src='./icons/edit_prod.svg' style='width:23px; height:23px;' /></span></a>
+
+                      </td>
                  </tr>";
                   }
                 ?>
