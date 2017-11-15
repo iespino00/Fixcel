@@ -26,6 +26,7 @@
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+     <script type="text/javascript" src="js/searchBar.js"></script>
 <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
  <script src="js/jquery-1.9.1.min.js"></script>-->
   <script>
@@ -67,48 +68,66 @@
         include("menu.php");
       ?>
 
-  <div class="content-wrapper">
+
+
+        <div class="content-wrapper">
     <div class="container-fluid">
 
-      <div class="row">
-        <div class="col-12">
-          <center><h1>VENTAS FIXCEL</h1></center>
-           <!--<center><input type="text" id="lector" name="lector" onkeyup = "getProducto()" autofocus ></center>
-           <input type="text" name="id" id="id" readonly>
+        <!-- inicia div de consulta-->
+     <center><div class="card-header"><h4>VENTAS FIXCEL</h4></div></center>
+             <hr class="my-4">
+             <input type="text" class="form-control" id="lector" placeholder="" oninput = "getProducto()"  autofocus> 
+        <hr class="my-4">
+       <!-- termina div de registro de usuarios-->
+
+        <div class="col-md-3 col-md-offset-3" id="result"></div>
         
-          <p>Este es un ejemplo de una página en blanco aqui irá el contenido depende de lo que selecciones.<?php echo  $tipo ; ?></p> -->
+          <!-- INICIA DIV DE TABLA-->
+   
+           <div class="col-12" style="width:100%; height:300px; overflow: scroll;" >
+                <table style="width:100%" border="4" id="tabla" >
+                    <tr bgcolor="#4BE746">
+                    <th><center>ID</center></th>
+                    <th><center>Descripción</center></th> 
+                    <th><center>Precio</center></th> 
+                    </tr>
+                </table>
+           </div>
+                
+    <!--TERMINA DIV DE TABLA -->
+     <hr class="my-4">
+            <div class="col-2">
+                <input type="text" class="form-control" id="total_venta" name="total_venta" placeholder="" readonly>
+            </div>
+    </div>
 
-           <input type="text" class="form-control" id="lector" placeholder="" onkeyup = "getProducto()"  autofocus> 
-        </div>
-
-           
-         <div class="col-md-3 col-md-offset-3" id="result"></div>
-      </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
-      <!--Footer y  Cerrar Sesión Modal-->
+      <!--Footer y  Modales-->
     <?php
     include ("footer.php");
-    include("modales.php");
+    include ("modales.php");
     ?>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>
     </a>
   
-
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/searchBar.js"></script>
-
+     <!-- Custom scripts for this page-->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   </div>
+
+  <script >
+    var total= 0;
+  </script>
 </body>
 
 </html>

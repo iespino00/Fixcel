@@ -8,8 +8,8 @@ function search()
   $mysqli = getConnexion();
   $search = $mysqli->real_escape_string($_POST['lector']);
   $query = "SELECT * FROM codigos_barras
-			inner join productos
-			on codigos_barras.id_producto = productos.id_producto
+			      inner join productos
+		       	on codigos_barras.id_producto = productos.id_producto
              WHERE codigo_barras = $search ";
 
   $res = $mysqli->query($query);
@@ -18,7 +18,8 @@ function search()
      {
     //	echo "<p><a>$row[id_producto]   $row[descripcion_producto]</a></p>";
    //   echo " <input type='text' value=$row[descripcion_producto] >";
-      echo json_encode($row,JSON_NUMERIC_CHECK);
+   //   echo json_encode($row,JSON_NUMERIC_CHECK);
+      echo json_encode($row);
   	 }
 }
 
