@@ -53,10 +53,18 @@ function getProducto()
 
               document.getElementById('lector').value=""; 
               var objRes = JSON.parse(resultado);
-            total = (parseInt(total)+parseInt(objRes.costo_unitario));
-            console.log(total);
-          //    console.log(objRes.descripcion_producto + ' ' + objRes.costo_unitario);
-             //   console.log(totalVentas.descripcion_producto);
+              total = (parseInt(total)+parseInt(objRes.costo_unitario));
+              document.getElementById("total_venta").value = total;
+           arrayVentas.push(objRes);
+          console.log(arrayVentas);
+           /* var  i, x = "";
+            for (i in objRes.descripcion_producto) 
+               {
+                  x += objRes.descripcion_producto[i];
+
+                } 
+                console.log(x);*/
+
 
              /*var addJson = {
                             id_producto: objRes.id_producto,

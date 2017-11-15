@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-11-2017 a las 04:09:03
+-- Tiempo de generación: 15-11-2017 a las 05:37:33
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -64,7 +64,17 @@ CREATE TABLE IF NOT EXISTS `codigos_barras` (
 `id_codigos_barras` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL COMMENT 'FK IdProducto Tabla Productos',
   `codigo_barras` varchar(45) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `codigos_barras`
+--
+
+INSERT INTO `codigos_barras` (`id_codigos_barras`, `id_producto`, `codigo_barras`) VALUES
+(1, 1, '00000000001'),
+(2, 2, '00000000002'),
+(3, 3, '00000000003'),
+(4, 4, '00000000004');
 
 -- --------------------------------------------------------
 
@@ -98,7 +108,17 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `costo_proveedor` float NOT NULL COMMENT 'Costo real del proveedor',
   `stock_seguridad` int(5) NOT NULL COMMENT 'Stock para lanzar notificacion para surtir',
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_producto`, `id_subcategoria`, `descripcion_producto`, `costo_unitario`, `costo_proveedor`, `stock_seguridad`, `fecha_registro`) VALUES
+(1, 1, 'Iphone 6 32GB', 9000, 8000, 3, '2017-11-10 03:48:10'),
+(2, 1, 'Iphone X 128 GB', 30000, 25000, 5, '2017-11-10 04:06:32'),
+(3, 2, 'G6 64 GB', 13500, 12000, 3, '2017-11-15 02:56:11'),
+(4, 1, 'Iphone 8 Plus 128 GB', 22000, 20000, 2, '2017-11-12 03:48:59');
 
 -- --------------------------------------------------------
 
@@ -110,7 +130,17 @@ CREATE TABLE IF NOT EXISTS `stock` (
 `id_stock` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `stock_disponible` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `stock`
+--
+
+INSERT INTO `stock` (`id_stock`, `id_producto`, `stock_disponible`) VALUES
+(1, 1, 3),
+(2, 2, 6),
+(3, 3, 8),
+(4, 4, 6);
 
 -- --------------------------------------------------------
 
@@ -122,24 +152,15 @@ CREATE TABLE IF NOT EXISTS `subcategorias_productos` (
 `id_subcategoria` int(11) NOT NULL,
   `descripcion_subcategoria` text COLLATE utf8_unicode_ci NOT NULL,
   `id_categoria` int(11) NOT NULL COMMENT 'fk Tabla:categoria_productos'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `subcategorias_productos`
 --
 
 INSERT INTO `subcategorias_productos` (`id_subcategoria`, `descripcion_subcategoria`, `id_categoria`) VALUES
-(1, 'Iphone 6s Plus 16 GB', 1),
-(2, 'Iphone X 128 GB', 1),
-(3, 'Iphone 6 16 GB', 1),
-(4, 'LG G6 32 GB', 1),
-(5, 'Iphone 4', 3),
-(6, 'Para teléfonos Android', 3),
-(7, 'LG G5', 1),
-(8, 'Motorola G5', 1),
-(9, 'Samsung s7', 1),
-(10, 'Samsung s8', 1),
-(11, 'LG G3 Stylus', 1);
+(1, 'Apple', 1),
+(2, 'LG', 1);
 
 -- --------------------------------------------------------
 
@@ -179,8 +200,8 @@ INSERT INTO `usuarios` (`id_user`, `nickname`, `password`, `nombre`, `apellido_p
 CREATE TABLE IF NOT EXISTS `ventas` (
 `id_ticket` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `fecha_ticket` int(11) NOT NULL,
-  `total_venta` int(11) NOT NULL,
+  `fecha_ticket` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `total_venta` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `status_ticket` int(2) NOT NULL COMMENT '0= Anulado y 1= Activo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -260,7 +281,7 @@ MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `codigos_barras`
 --
 ALTER TABLE `codigos_barras`
-MODIFY `id_codigos_barras` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_codigos_barras` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `detalle_ventas`
 --
@@ -270,17 +291,17 @@ MODIFY `id_detalle_venta` int(20) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-MODIFY `id_producto` int(15) NOT NULL AUTO_INCREMENT;
+MODIFY `id_producto` int(15) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_stock` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `subcategorias_productos`
 --
 ALTER TABLE `subcategorias_productos`
-MODIFY `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id_subcategoria` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --

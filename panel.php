@@ -6,7 +6,8 @@
 
  $nickname =  $_SESSION['nickname'];
  $tipo =  $_SESSION['tipo'];
-
+  
+  $date = date("d/m/Y");
  ?>
 
 <!DOCTYPE html>
@@ -30,7 +31,9 @@
 <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
  <script src="js/jquery-1.9.1.min.js"></script>-->
   <script>
-
+ 
+     var arrayVentas=[];
+     var total= 0;
    /* function getProducto()
     {
     var min_length = 0; // min caracters to display the autocomplete
@@ -96,9 +99,26 @@
                 
     <!--TERMINA DIV DE TABLA -->
      <hr class="my-4">
-            <div class="col-2">
-                <input type="text" class="form-control" id="total_venta" name="total_venta" placeholder="" readonly>
-            </div>
+            
+             <center>
+              <div class="form-row">
+                 <div class="col-md-2">
+                 </div>
+                 <div class="col-md-2">
+                 </div>
+                  <div class="col-md-2">
+                       <h5>Fecha: </h5>
+                       <input type="text" class="form-control" id="fecha_ticket" name="fecha_ticket" readonly value="<?php echo $date;?>">
+                   </div>
+
+                    <div class="col-md-2">
+                       <h5>Pago Total: </h5>
+                       <input type="text" class="form-control" id="total_venta" name="total_venta" placeholder="Total a Pagar" readonly>
+                    </div>
+              </div>
+              </center>
+
+      <hr class="my-4">
     </div>
 
     <!-- /.container-fluid-->
@@ -126,7 +146,7 @@
   </div>
 
   <script >
-    var total= 0;
+    
   </script>
 </body>
 
