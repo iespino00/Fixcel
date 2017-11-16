@@ -34,6 +34,7 @@
  
      var arrayVentas=[];
      var total= 0;
+
    /* function getProducto()
     {
     var min_length = 0; // min caracters to display the autocomplete
@@ -77,7 +78,7 @@
     <div class="container-fluid">
 
         <!-- inicia div de consulta-->
-     <center><div class="card-header"><h4>VENTAS FIXCEL</h4></div></center>
+     <center><div class="card-header"><h4>** VENTAS FIXCEL **</h4></div></center>
              <hr class="my-4">
              <input type="text" class="form-control" id="lector" placeholder="" oninput = "getProducto()"  autofocus> 
         <hr class="my-4">
@@ -90,9 +91,10 @@
            <div class="col-12" style="width:100%; height:300px; overflow: scroll;" >
                 <table style="width:100%" border="4" id="tabla" >
                     <tr bgcolor="#4BE746">
-                    <th><center>ID</center></th>
+                    <th><center>Cod.Producto</center></th>
                     <th><center>Descripción</center></th> 
-                    <th><center>Precio</center></th> 
+                    <th><center>Precio</center></th>
+                    <th><center>Acción</center></th>  
                     </tr>
                 </table>
            </div>
@@ -118,7 +120,11 @@
               </div>
               </center>
 
-      <hr class="my-4">
+      <hr class="my-3">
+
+       <center> <input type="submit" class="btn btn-danger" id="registrar" name="registrar" value="Realizar la Compra"> </center>
+
+      <hr class="my-3">
     </div>
 
     <!-- /.container-fluid-->
