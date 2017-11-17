@@ -7,7 +7,7 @@
  $nickname =  $_SESSION['nickname'];
  $tipo =  $_SESSION['tipo'];
   
-  $date = date("d/m/Y");
+ $date = date("d/m/Y");
  ?>
 
 <!DOCTYPE html>
@@ -27,13 +27,25 @@
   <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
-     <script type="text/javascript" src="js/searchBar.js"></script>
+ 
+          <!--ALERT -->
+  <script src="dist_alert/sweetalert-dev.js"></script>
+  <link rel="stylesheet" href="dist_alert/sweetalert.css">
+  <!--.......................-->
 <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
  <script src="js/jquery-1.9.1.min.js"></script>-->
   <script>
- 
+     var objRes;
      var arrayVentas=[];
-     var total= 0;
+     var total_venta= 0;
+     var id_user ='<?php echo $nickname;?>';
+     var fecha_ticket ='<?php echo $date;?>';
+     var fecha_venta = fecha_ticket;
+     var hora_venta;
+     var cantidad = 1;
+     var status_ticket = 1;
+     var ganancia = 0;
+     var stk_actual=0;
 
    /* function getProducto()
     {
@@ -122,7 +134,7 @@
 
       <hr class="my-3">
 
-       <center> <input type="submit" class="btn btn-danger" id="registrar" name="registrar" value="Realizar la Compra"> </center>
+       <center> <input type="submit" class="btn btn-danger" id="registrar" name="registrar" value="Realizar la Compra" onclick="pagar();"> </center>
 
       <hr class="my-3">
     </div>
@@ -149,6 +161,7 @@
     <script src="js/sb-admin.min.js"></script>
      <!-- Custom scripts for this page-->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/searchBar.js"></script>
   </div>
 
   <script >

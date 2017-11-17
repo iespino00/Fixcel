@@ -39,7 +39,7 @@ function getProducto()
       $.ajax({
               type: 'POST',
               url: 'ws/webService.php',
-              data: {'lector': search},
+              data: {'lector': search,tarea:'1'},
       
                   beforeSend: function()
                   {
@@ -50,25 +50,37 @@ function getProducto()
       .done(function(resultado)
             {
             $('#result').html('')
+            var stockND =resultado;
+              if(stockND!=0)
+              {
+                  document.getElementById('lector').value=""; 
+                  var objRes = JSON.parse(resultado);
+                  arrayVentas.push(objRes);
+                
+                  
+                  total_venta = (parseInt(total_venta)+parseInt(objRes.costo_unitario));
+                  document.getElementById("total_venta").value = total_venta;
+                  
+                //  console.log(objRes.stock_disponible);
+                  var id_tabla = 1;
 
-              document.getElementById('lector').value=""; 
-              var objRes = JSON.parse(resultado);
-              total = (parseInt(total)+parseInt(objRes.costo_unitario));
-              document.getElementById("total_venta").value = total;
-              arrayVentas.push(objRes);
-              console.log(arrayVentas);
-              var id_tabla = 1;
+                var d = '';
+                    d+= 
+                     '<tr>'+
+                     '<td><center>'+objRes.id_producto+'</center></td>'+
+                     '<td><center>'+objRes.descripcion_producto+'</center></td>'+
+                     '<td><center>$ '+objRes.costo_unitario+' MXP</center></td>'+
+                     '<td><center><a title="Eliminar de la compra" onclick="deleteRow('+id_tabla+')"><img src="./icons/delete_cart.svg" style="width:26px; height:45px;"/></a></center></td>'+
+                     '</tr>';
+                  $("#tabla").append(d);
+                    id_tabla = id_tabla +1;
 
-            var d = '';
-                d+= 
-                 '<tr>'+
-                 '<td><center>'+objRes.id_producto+'</center></td>'+
-                 '<td><center>'+objRes.descripcion_producto+'</center></td>'+
-                 '<td><center>$ '+objRes.costo_unitario+' MXP</center></td>'+
-                 '<td><center><a title="Eliminar de la compra" onclick="deleteRow('+id_tabla+')"><img src="./icons/delete_cart.svg" style="width:26px; height:45px;"/></a></center></td>'+
-                 '</tr>';
-              $("#tabla").append(d);
-                id_tabla = id_tabla +1;
+
+                  }else
+                      {
+                        document.getElementById('lector').value=""; 
+                        alerta("No hay stock Disponible");
+                      }  
             })
 
       .fail(function()
@@ -86,11 +98,81 @@ function deleteRow(id_tabla)
      arrayVentas = arrayVentas.slice(id_ventas_delete + 1);
      id_tabla = id_tabla -1 ;
      //delete arrayVentas[deletee];
+}
 
-
-/*     for(var n=1;n<arrayVentas.length;n++)
+function pagar()
+{ 
+  var title ="!! Venta Realizada ¡¡";
+  getTime();
+  
+   /* for(var posicion=0; posicion<arrayVentas.length; posicion++)
      {
-      console.log(arrayVentas);
+      var descripcion = arrayVentas[posicion].descripcion_producto;
+      console.log(descripcion);
      }
 */
+
+ /*
+  console.log(arrayVentas);
+  console.log(total_venta);
+  console.log(id_user);
+  console.log(fecha_ticket);
+  console.log(fecha_venta);
+  console.log(hora_venta);
+  console.log(status_ticket);
+  console.log(cantidad);
+*/   
+      $.ajax({
+              type: 'POST',
+              url: 'ws/webService.php',
+              data: {tarea:'2',
+                     arrayVentas:arrayVentas},
+     
+                  beforeSend: function()
+                  {
+                  $('#result').html('<img src="Images/cargando.gif">')
+                  }
+            })
+
+      .done(function(resultado)
+            {
+            $('#result').html('')
+                var tarea2 =  resultado;
+                console.log(tarea2);
+            
+            })
+
+      .fail(function()
+          {
+          alert('Hubo un error')
+          })
+ 
+  alerta(title);
 }
+
+
+function getTime()
+{
+  var tiempo = new Date();
+  var hora = tiempo.getHours();
+  var minutos = tiempo.getMinutes();
+  var segundos = tiempo.getSeconds();
+  hora_venta = hora+':'+minutos+':'+segundos;
+  return hora_venta;
+}
+
+function alerta(title)
+  {
+             swal({
+                  title: title,
+                  timer: 1000,
+                  showConfirmButton: false
+               });
+
+      //     setTimeout(next, 1100);
+  }
+
+  function next()
+  {
+    location.href="panel.php";
+  }
