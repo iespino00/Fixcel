@@ -5,6 +5,7 @@
  error_reporting(E_ALL ^ E_WARNING);
 
  $nickname =  $_SESSION['nickname'];
+  $user =  $_SESSION['id_user'];
  $tipo =  $_SESSION['tipo'];
   
  $date = date("d/m/Y");
@@ -40,7 +41,7 @@
   vertical-align: baseline;
   cursor: pointer;
   text-decoration: none;
-  font: 6px Arial;
+  font: 10px Arial;
   padding: .5em 2em .55em;
   text-shadow: 0 1px 1px rgba(0,0,0,.3);
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
@@ -81,7 +82,7 @@
      var objRes;
      var arrayVentas=[];
      var total_venta= 0;
-     var id_user ='<?php echo $nickname;?>';
+     var id_user ='<?php echo $user;?>';
      var fecha_ticket ='<?php echo $date;?>';
      var fecha_venta = fecha_ticket;
      var hora_venta;
@@ -89,7 +90,8 @@
      var status_ticket = 1;
      var ganancia = 0;
      var stk_actual=0;
-     var cont= 0
+     var cont= 0;
+     var acc_lector;
      
    /* function getProducto()
     {

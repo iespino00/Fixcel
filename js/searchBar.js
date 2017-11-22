@@ -30,12 +30,18 @@
  
 function getProducto()
 {
- 
+   
+   
  // $('#lector').focus()
   //  $('#lector').on('keyup', function()
   //  {
 
-      var search = $('#lector').val()
+
+ var search = $('#lector').val()
+  acc_lector = search.length; 
+  
+  if(acc_lector == 11)
+  {
       $.ajax({
               type: 'POST',
               url: 'ws/webService.php',
@@ -108,6 +114,8 @@ function getProducto()
           alert('Hubo un error')
           })
  //   })
+    }
+
 }
 
 function deleteRow(id_tabla)
@@ -137,7 +145,7 @@ function pagar()
   console.log(arrayVentas);
   console.log(total_venta);
   console.log(id_user);
-  console.log(fecha_ticket);
+  console.log(c);
   console.log(fecha_venta);
   console.log(hora_venta);
   console.log(status_ticket);
@@ -147,7 +155,15 @@ function pagar()
               type: 'POST',
               url: 'ws/webService.php',
               data: {tarea:'2',
-                     arrayVentas:arrayVentas},
+                     arrayVentas:arrayVentas,
+                     id_user:id_user,
+                     fecha_ticket:fecha_ticket,
+                     total_venta:total_venta,
+                     status_ticket:status_ticket,
+                     cantidad:cantidad,
+                     fecha_venta:fecha_venta,
+                     hora_venta:hora_venta
+                     },
      
                   beforeSend: function()
                   {
