@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-11-2017 a las 05:37:33
+-- Tiempo de generación: 22-11-2017 a las 07:30:02
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -87,11 +87,10 @@ CREATE TABLE IF NOT EXISTS `detalle_ventas` (
   `id_ticket` int(11) NOT NULL,
   `id_producto` int(11) NOT NULL,
   `cantidad` int(5) NOT NULL,
-  `costo_act_venta` float NOT NULL COMMENT 'Costo de venta en ese momento',
-  `costo_act_proveedor` float NOT NULL COMMENT 'Costo del proveedor en ese momento',
-  `ganancia` float NOT NULL,
-  `fecha_venta` date NOT NULL,
-  `hora_venta` time NOT NULL
+  `costo_act_venta` varchar(45) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Costo de venta en ese momento',
+  `costo_act_proveedor` varchar(45) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Costo del proveedor en ese momento',
+  `ganancia` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `fecha_venta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
