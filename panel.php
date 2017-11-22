@@ -31,7 +31,50 @@
           <!--ALERT -->
   <script src="dist_alert/sweetalert-dev.js"></script>
   <link rel="stylesheet" href="dist_alert/sweetalert.css">
-  <!--.......................-->
+
+<style type="text/css">
+  .boton {
+  display: inline-block;
+  zoom: 2;
+  *display: inline;
+  vertical-align: baseline;
+  cursor: pointer;
+  text-decoration: none;
+  font: 6px Arial;
+  padding: .5em 2em .55em;
+  text-shadow: 0 1px 1px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+  box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.boton:hover { text-decoration: none; }
+ 
+/* Redondez */
+ 
+.redondo {
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+ 
+/* Color */
+ 
+.negro {
+  color: #d7d7d7;
+  border: solid 1px #333;
+  background: #333;
+  background: -webkit-gradient(linear, left top, left bottom, from(#666), to(#000));
+  background: -moz-linear-gradient(top,  #666,  #000);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#666666', endColorstr='#000000');
+}
+.negro:hover {
+  background: #000;
+  background: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
+  background: -moz-linear-gradient(top,  #444,  #000);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#444444', endColorstr='#000000');
+}
+</style>
+
 <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
  <script src="js/jquery-1.9.1.min.js"></script>-->
   <script>
@@ -46,7 +89,8 @@
      var status_ticket = 1;
      var ganancia = 0;
      var stk_actual=0;
-
+     var cont= 0
+     
    /* function getProducto()
     {
     var min_length = 0; // min caracters to display the autocomplete
@@ -72,6 +116,11 @@
   document.getElementById('text').innerHTML = 'Modificado';
   console.log("cambiando los otros inputs " + id);
   }*/
+
+  window.onload = function() {
+ document.getElementById("registrar").disabled = true;
+        };
+
   </script>
 
 
@@ -95,7 +144,7 @@
              <input type="text" class="form-control" id="lector" placeholder="" oninput = "getProducto()"  autofocus> 
         <hr class="my-4">
        <!-- termina div de registro de usuarios-->
-
+      <center><button type="button" class="boton negro redondo" id="cont" name="cont" disabled>0 Productos enlistados</button></center>
         <div class="col-md-3 col-md-offset-3" id="result"></div>
         
           <!-- INICIA DIV DE TABLA-->

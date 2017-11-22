@@ -27,7 +27,7 @@
     })
 })
 */
-
+ 
 function getProducto()
 {
  
@@ -51,36 +51,56 @@ function getProducto()
             {
             $('#result').html('')
             var stockND =resultado;
+
               if(stockND!=0)
               {
                   document.getElementById('lector').value=""; 
                   var objRes = JSON.parse(resultado);
-                  arrayVentas.push(objRes);
-                
+               
                   
-                  total_venta = (parseInt(total_venta)+parseInt(objRes.costo_unitario));
-                  document.getElementById("total_venta").value = total_venta;
-                  
-                //  console.log(objRes.stock_disponible);
-                  var id_tabla = 1;
+                  var stk_carrito = {};
+                    arrayVentas.forEach(function(id) { 
+                      var id = id["id_producto"];
+                      stk_carrito[id] = stk_carrito[id] ? (stk_carrito[id] + 1) : 1;
+                    });
+                  var id_consultado = objRes.id_producto;
+                  var stk_consultado = stk_carrito[id_consultado];
 
-                var d = '';
-                    d+= 
-                     '<tr>'+
-                     '<td><center>'+objRes.id_producto+'</center></td>'+
-                     '<td><center>'+objRes.descripcion_producto+'</center></td>'+
-                     '<td><center>$ '+objRes.costo_unitario+' MXP</center></td>'+
-                     '<td><center><a title="Eliminar de la compra" onclick="deleteRow('+id_tabla+')"><img src="./icons/delete_cart.svg" style="width:26px; height:45px;"/></a></center></td>'+
-                     '</tr>';
-                  $("#tabla").append(d);
-                    id_tabla = id_tabla +1;
+               
 
+                  if(objRes.stock_disponible<=stk_consultado)
+                  { 
+ 
+                    alerta('Ya no hay stock');
+                      
+                  }else{
+                          arrayVentas.push(objRes);
+                          contProductos();
+                             total_venta = (parseInt(total_venta)+parseInt(objRes.costo_unitario));
+                          document.getElementById("total_venta").value = total_venta;
+                          
+                          var id_tabla = 1;
 
-                  }else
+                        var d = '';
+                            d+= 
+                             '<tr>'+
+                             '<td><center>'+objRes.id_producto+'</center></td>'+
+                             '<td><center>'+objRes.descripcion_producto+'</center></td>'+
+                             '<td><center>$ '+objRes.costo_unitario+' MXP</center></td>'+
+                             '<td><center><a title="Eliminar de la compra" onclick="deleteRow('+id_tabla+')"><img src="./icons/delete_cart.svg" style="width:26px; height:45px;"/></a></center></td>'+
+                             '</tr>';
+                          $("#tabla").append(d);
+                            id_tabla = id_tabla +1;
+
+                        }
+                       
+                   
+                  }else 
                       {
                         document.getElementById('lector').value=""; 
                         alerta("No hay stock Disponible");
                       }  
+                     
             })
 
       .fail(function()
@@ -98,6 +118,7 @@ function deleteRow(id_tabla)
      arrayVentas = arrayVentas.slice(id_ventas_delete + 1);
      id_tabla = id_tabla -1 ;
      //delete arrayVentas[deletee];
+     contProductos();
 }
 
 function pagar()
@@ -161,6 +182,7 @@ function getTime()
   return hora_venta;
 }
 
+
 function alerta(title)
   {
              swal({
@@ -175,4 +197,17 @@ function alerta(title)
   function next()
   {
     location.href="panel.php";
+  }
+
+  function contProductos()
+  {
+     var n = arrayVentas.length;
+     $('#cont').html(n+' Productos enlistados');
+
+     if( n > 0 )
+     {
+      document.getElementById("registrar").disabled = false;
+     }else{
+      document.getElementById("registrar").disabled = true;
+     }
   }
