@@ -177,7 +177,8 @@ function pagar()
                 if(res == 1)
                 {
                   alerta('!! Venta Realizada con Éxito ¡¡');
-                  location.reload();
+                 imprimirTicket();
+                 // location.reload();
                 }
                 if(res == 0){
                      alerta('!! Error al realizar la Venta ¡¡');
@@ -194,6 +195,49 @@ function pagar()
 
 }
 
+
+
+function imprimirTicket()
+{ 
+      $.ajax({
+              type: 'POST',
+              url: 'ws/webService.php',
+              data: {tarea:'3',
+                     arrayVentas:arrayVentas,
+                     id_user:id_user,
+                     fecha_ticket:fecha_ticket,
+                     total_venta:total_venta,
+                     status_ticket:status_ticket,
+                     cantidad:cantidad,
+                     fecha_venta:fecha_venta,
+                     hora_venta:hora_venta
+                     },
+     
+                  beforeSend: function()
+                  {
+                  $('#result').html('<center><img src="Images/cargando.gif"></center>')
+                  }
+            })
+
+      .done(function(resultado)
+            {
+            $('#result').html('')
+                var res =  resultado;
+                  console.log(res);
+/*                if(res == 1)
+                {
+                   location.reload();
+                }
+                if(res == 0){
+                    location.reload();
+                    }*/     
+            })
+
+      .fail(function()
+          {
+          alert('Hubo un error')
+          })
+ }
 
 function getTime()
 {

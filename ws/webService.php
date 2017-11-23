@@ -1,5 +1,9 @@
  <?php 
 require_once 'conexion.php';
+  require __DIR__ . '/../libs/ticket/autoload.php'; //Nota: si renombraste la carpeta a algo diferente de "ticket" cambia el nombre en esta línea
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 if($_REQUEST['tarea'] == '1')
 {
@@ -77,6 +81,7 @@ if($_REQUEST['tarea'] == '2')
                   $resUpdStock = $mysqli->query($queryUpdStock);
 
             }
+
         echo($ok);
        } 
           else{
@@ -90,7 +95,60 @@ for($i=0;$i<count($ventas);$i++)
   }
 */
 //print_r($ventas) ;
-
-  mysqli_close($mysqli);
+ 
+ // mysqli_close($mysqli);
 }
 
+
+//Imprimir ticket
+if($_REQUEST['tarea'] == '3')
+{ 
+    $mysqli = getConnexion();
+    
+    $okk= 'Todo bien al imprimir';
+    $ventas =   $_REQUEST['arrayVentas'];
+    $id_user = $_REQUEST['id_user'];
+    $fecha_ticket = $_REQUEST['fecha_ticket'];
+    $total_venta = $_REQUEST['total_venta'];
+    $status_ticket = $_REQUEST['status_ticket'];
+    $cantidad = $_REQUEST['cantidad'];
+    $fecha_venta = $_REQUEST['fecha_venta'];
+    $hora_venta = $_REQUEST['hora_venta'];
+
+
+$queryTicket = "SELECT MAX(id_ticket) AS id_ticket FROM ventas";
+                  $resTicket = $mysqli->query($queryTicket);
+                  $res = mysqli_fetch_assoc($resTicket);
+                  $id_ticket= $res['id_ticket'];
+
+   
+       $nombre_impresora = "POS-58"; 
+       $connector = new WindowsPrintConnector($nombre_impresora);
+       $printer = new Printer($connector);
+       $printer->setJustification(Printer::JUSTIFY_CENTER);
+
+       $printer->text("*** FIXCEL ***" . "\n");
+       $printer->text("'Lo mejor'" . "\n");
+       #La fecha también
+       $printer->text(date("Y-m-d H:i:s") . "\n");
+       $printer->text("TICKET No: " .$id_ticket. "\n");
+
+        for($i=0;$i<count($ventas);$i++)
+        {
+          $printer->setJustification(Printer::JUSTIFY_LEFT);
+          $printer->text($cantidad . " -> " . $ventas[$i]['descripcion_producto'] . "\n");
+
+          $printer->setJustification(Printer::JUSTIFY_RIGHT);
+          $printer->text(' $' . $ventas[$i]['costo_unitario'] . "\n");
+        }
+
+          $printer->text("--------\n");
+          $printer->text("TOTAL: $". $total_venta ."\n");
+
+          $printer->text("Gracias por su compra");
+          $printer->feed(3);
+          $printer->cut();
+          $printer->pulse();
+          $printer->close();
+   echo $okk;
+}
