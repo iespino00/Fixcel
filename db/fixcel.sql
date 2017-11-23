@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2017 a las 07:30:02
+-- Tiempo de generación: 23-11-2017 a las 01:52:19
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -90,8 +90,51 @@ CREATE TABLE IF NOT EXISTS `detalle_ventas` (
   `costo_act_venta` varchar(45) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Costo de venta en ese momento',
   `costo_act_proveedor` varchar(45) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Costo del proveedor en ese momento',
   `ganancia` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
-  `fecha_venta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `fecha_venta` date NOT NULL,
+  `hora_venta` time NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_ventas`
+--
+
+INSERT INTO `detalle_ventas` (`id_detalle_venta`, `id_ticket`, `id_producto`, `cantidad`, `costo_act_venta`, `costo_act_proveedor`, `ganancia`, `fecha_venta`, `hora_venta`) VALUES
+(1, 1, 1, 1, '9000', '8000', '1000', '2017-11-22', '13:48:08'),
+(2, 1, 1, 1, '9000', '8000', '1000', '2017-11-22', '13:48:08'),
+(3, 2, 1, 1, '9000', '8000', '1000', '2017-11-22', '13:48:20'),
+(4, 2, 1, 1, '9000', '8000', '1000', '2017-11-22', '13:48:20'),
+(5, 2, 1, 1, '9000', '8000', '1000', '2017-11-22', '13:48:20'),
+(6, 2, 1, 1, '9000', '8000', '1000', '2017-11-22', '13:48:20'),
+(7, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(8, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(9, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(10, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(11, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(12, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(13, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(14, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(15, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(16, 3, 4, 1, '22000', '20000', '2000', '2017-11-22', '13:50:40'),
+(17, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(18, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(19, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(20, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(21, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(22, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(23, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(24, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(25, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(26, 4, 3, 1, '13500', '12000', '1500', '2017-11-22', '13:51:44'),
+(27, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(28, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(29, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(30, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(31, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(32, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(33, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(34, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(35, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24'),
+(36, 5, 2, 1, '30000', '25000', '5000', '2017-11-22', '13:52:24');
 
 -- --------------------------------------------------------
 
@@ -115,9 +158,9 @@ CREATE TABLE IF NOT EXISTS `productos` (
 
 INSERT INTO `productos` (`id_producto`, `id_subcategoria`, `descripcion_producto`, `costo_unitario`, `costo_proveedor`, `stock_seguridad`, `fecha_registro`) VALUES
 (1, 1, 'Iphone 6 32GB', 9000, 8000, 3, '2017-11-10 03:48:10'),
-(2, 1, 'Iphone X 128 GB', 30000, 25000, 5, '2017-11-10 04:06:32'),
+(2, 1, 'Iphone X 128 GB', 30000, 25000, 3, '2017-11-22 18:03:53'),
 (3, 2, 'G6 64 GB', 13500, 12000, 3, '2017-11-15 02:56:11'),
-(4, 1, 'Iphone 8 Plus 128 GB', 22000, 20000, 2, '2017-11-12 03:48:59');
+(4, 1, 'Iphone 8 Plus 128 GB', 22000, 20000, 3, '2017-11-22 18:03:58');
 
 -- --------------------------------------------------------
 
@@ -136,10 +179,10 @@ CREATE TABLE IF NOT EXISTS `stock` (
 --
 
 INSERT INTO `stock` (`id_stock`, `id_producto`, `stock_disponible`) VALUES
-(1, 1, 3),
-(2, 2, 6),
-(3, 3, 8),
-(4, 4, 6);
+(1, 1, 4),
+(2, 2, 0),
+(3, 3, 0),
+(4, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -202,7 +245,18 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   `fecha_ticket` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `total_venta` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `status_ticket` int(2) NOT NULL COMMENT '0= Anulado y 1= Activo'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id_ticket`, `id_user`, `fecha_ticket`, `total_venta`, `status_ticket`) VALUES
+(1, 1, '2017-11-22 19:48:08', '18000', 1),
+(2, 1, '2017-11-22 19:48:20', '36000', 1),
+(3, 1, '2017-11-22 19:50:40', '220000', 1),
+(4, 1, '2017-11-22 19:51:45', '135000', 1),
+(5, 1, '2017-11-22 19:52:24', '300000', 1);
 
 --
 -- Índices para tablas volcadas
@@ -285,7 +339,7 @@ MODIFY `id_codigos_barras` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `detalle_ventas`
 --
 ALTER TABLE `detalle_ventas`
-MODIFY `id_detalle_venta` int(20) NOT NULL AUTO_INCREMENT;
+MODIFY `id_detalle_venta` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
@@ -310,7 +364,7 @@ MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- Restricciones para tablas volcadas
 --

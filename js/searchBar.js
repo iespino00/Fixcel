@@ -30,9 +30,7 @@
  
 function getProducto()
 {
-   
-   
- // $('#lector').focus()
+  // $('#lector').focus()
   //  $('#lector').on('keyup', function()
   //  {
 
@@ -131,9 +129,9 @@ function deleteRow(id_tabla)
 
 function pagar()
 { 
-  var title ="!! Venta Realizada ¡¡";
+   document.getElementById("registrar").disabled = true;
   getTime();
-  
+
    /* for(var posicion=0; posicion<arrayVentas.length; posicion++)
      {
       var descripcion = arrayVentas[posicion].descripcion_producto;
@@ -167,16 +165,25 @@ function pagar()
      
                   beforeSend: function()
                   {
-                  $('#result').html('<img src="Images/cargando.gif">')
+                  $('#result').html('<center><img src="Images/cargando.gif"></center>')
                   }
             })
 
       .done(function(resultado)
             {
             $('#result').html('')
-                var tarea2 =  resultado;
-                console.log(tarea2);
-            
+                var res =  resultado;
+
+                if(res == 1)
+                {
+                  alerta('!! Venta Realizada con Éxito ¡¡');
+                  location.reload();
+                }
+                if(res == 0){
+                     alerta('!! Error al realizar la Venta ¡¡');
+                    location.reload();
+                    }
+                 document.getElementById("registrar").disabled = false;         
             })
 
       .fail(function()
@@ -184,7 +191,7 @@ function pagar()
           alert('Hubo un error')
           })
  
-  alerta(title);
+
 }
 
 
@@ -218,7 +225,7 @@ function alerta(title)
   function contProductos()
   {
      var n = arrayVentas.length;
-     $('#cont').html(n+' Productos enlistados');
+     $('#cont').html(n+' Productos Enlistados');
 
      if( n > 0 )
      {
