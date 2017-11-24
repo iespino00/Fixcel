@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2017 a las 01:52:19
+-- Tiempo de generación: 24-11-2017 a las 01:22:11
 -- Versión del servidor: 5.6.21
 -- Versión de PHP: 5.6.3
 
@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `anulacion_ventas` (
 `id_anulacion` int(11) NOT NULL,
   `id_ticket` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
+  `observacion` text COLLATE utf8_unicode_ci NOT NULL,
   `fecha_anulacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registro de las ventas anuladas after  del status de ventas';
 

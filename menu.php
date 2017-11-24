@@ -11,7 +11,7 @@
        if($_SESSION['tipo'] == 1)
         {
       ?>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Catálogos">
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Catálogos">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
             <i class="fa fa-cubes"></i>
             <span class="nav-link-text"><b>Catálogos (Altas)</b></span>
@@ -38,7 +38,7 @@
             <i class="fa fa-fw fa-area-chart"></i>
             <span class="nav-link-text"><b>Reportes</b></span>
           </a>
-        </li>
+      </li>
      
      <?php
         }
@@ -57,6 +57,20 @@
           <a class="nav-link" href="print_barcode.php">
             <i class="fa fa-barcode"></i>
             <span class="nav-link-text"><b>Códigos de Barras</b></span>
+          </a>
+        </li>
+		
+		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sección de Ventas">
+          <a class="nav-link" href="panel.php">
+            <i class="fa fa-money"></i>
+            <span class="nav-link-text"><b>Vender</b></span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Cancelación de Tickets">
+          <a class="nav-link" href="cancelar_ticket.php">
+            <i class="fa fa-ticket"></i>
+            <span class="nav-link-text"><b>Cancelar Ticket</b></span>
           </a>
         </li>
 
