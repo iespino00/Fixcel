@@ -3,12 +3,14 @@
 //if(!isset($_SESSION)) { session_start(); }
  require_once 'header.php';
  error_reporting(E_ALL ^ E_WARNING);
-
- $nickname =  $_SESSION['nickname'];
-  $user =  $_SESSION['id_user'];
- $tipo =  $_SESSION['tipo'];
+ require_once 'controllers/ControllerVentas.php';
   
- $date = date("Y/m/d");
+ $controller_Ventas = new ControllerVentas();
+ $nickname =  $_SESSION['nickname'];
+ $id_user =  $_SESSION['id_user'];
+ $tipo =  $_SESSION['tipo'];
+
+
  ?>
 
 <!DOCTYPE html>
@@ -33,7 +35,26 @@
   <script src="dist_alert/sweetalert-dev.js"></script>
   <link rel="stylesheet" href="dist_alert/sweetalert.css">
 
+<script >
+  
+    function alerta(title)
+      {
+             swal({
+                  title: title,
+                  timer: 1900,
+                  showConfirmButton: false
+               });
 
+           setTimeout(next, 1000);
+      }
+
+
+  function next()
+      {
+      location.href="cancelar_ticket.php";
+      }
+
+</script>
 
 </head>
 
@@ -42,6 +63,25 @@
         //MENU DE OPCIONES // NAVBAR
 
         include("menu.php");
+
+              if( isset($_POST['cancelar']) ) 
+            {
+          echo '<input type="cancelar" disabled>';
+                   
+          $resultado = $controller_Ventas->cancelar_venta($_REQUEST['id_ticket'],$id_user,$_REQUEST['observacion']);
+          if($resultado = 1)
+            {
+            $msgCreateOK = "Ticket cancelado con Éxito!";
+            echo '<script>alerta("'.$msgCreateOK.'");</script>'; 
+            }
+            else
+                {
+                  $msgCreateKO = "Error al cancelar el Ticket!";
+                  echo '<script>alerta("'.$msgAccesoOK.'");</script>';
+                }
+
+           } 
+
       ?>
 
    <div class="content-wrapper">
@@ -55,6 +95,7 @@
              <div class="form-group">
                 <center><label for="exampleInputPassword1">No.Ticket a cancelar:</label></center>
                 <input type="text" class="form-control" id="id_ticket" name="id_ticket" placeholder="Id del ticket" required> 
+                
                  <center><label for="exampleTextarea">Observación de la cancelación</label></center>
                 <textarea class="form-control" id="observacion" name="observacion" rows="3" required></textarea>
             </div>
@@ -88,7 +129,6 @@
     <script src="js/sb-admin.min.js"></script>
      <!-- Custom scripts for this page-->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/searchBar.js"></script>
   </div>
 
   <script >

@@ -178,7 +178,7 @@ function pagar()
                 {
                   alerta('!! Venta Realizada con Éxito ¡¡');
                  imprimirTicket();
-                 // location.reload();
+                  location.reload();
                 }
                 if(res == 0){
                      alerta('!! Error al realizar la Venta ¡¡');
