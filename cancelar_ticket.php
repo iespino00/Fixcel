@@ -10,7 +10,6 @@
  $id_user =  $_SESSION['id_user'];
  $tipo =  $_SESSION['tipo'];
 
-
  ?>
 
 <!DOCTYPE html>
@@ -45,7 +44,7 @@
                   showConfirmButton: false
                });
 
-           setTimeout(next, 1000);
+         //  setTimeout(next, 1000);
       }
 
 
@@ -69,15 +68,20 @@
           echo '<input type="cancelar" disabled>';
                    
           $resultado = $controller_Ventas->cancelar_venta($_REQUEST['id_ticket'],$id_user,$_REQUEST['observacion']);
-          if($resultado = 1)
+          if($resultado == 1)
             {
             $msgCreateOK = "Ticket cancelado con Éxito!";
             echo '<script>alerta("'.$msgCreateOK.'");</script>'; 
             }
-            else
+          if($resultado == 0)
                 {
                   $msgCreateKO = "Error al cancelar el Ticket!";
                   echo '<script>alerta("'.$msgAccesoOK.'");</script>';
+                }
+          if($resultado == 3)
+                {
+                  $msgCreateKO = "El ticket ya habia sido canselado";
+                  echo '<script>alerta("'.$msgCreateKO.'");</script>';
                 }
 
            } 

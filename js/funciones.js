@@ -18,7 +18,7 @@ function validaNum(e)
 
            setTimeout(next, 1000);
   }
-
+ 
   function wrong_empleado(title)
   {
              swal({

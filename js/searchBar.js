@@ -50,7 +50,7 @@ function getProducto()
                   $('#result').html('<img src="Images/cargando.gif">')
                   }
             })
-
+ 
       .done(function(resultado)
             {
             $('#result').html('')
@@ -109,7 +109,7 @@ function getProducto()
 
       .fail(function()
           {
-          alert('Hubo un error')
+          alerta('Error')
           })
  //   })
     }
@@ -189,7 +189,7 @@ function pagar()
 
       .fail(function()
           {
-          alert('Hubo un error')
+          alert('Comunicarse')
           })
  
 
@@ -235,7 +235,7 @@ function imprimirTicket()
 
       .fail(function()
           {
-          alert('Hubo un error')
+          console.log('Error Imprimir Ticket')
           })
  }
 

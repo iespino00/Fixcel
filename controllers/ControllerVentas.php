@@ -17,8 +17,15 @@ class ControllerVentas
 
          public function cancelar_venta($id_ticket,$id_user,$observacion)
             {     
-                $status_ticket = 0;
-            $stmt_statusTkt = $this->pdo->prepare('update ventas set status_ticket = :status_ticket
+            $status_ticket = 0;
+
+            $VALID_STATUS = $this->pdo->prepare('select * from ventas where id_ticket = :id_ticket limit 1');
+            $VALID_STATUS->execute(array('id_ticket' => $id_ticket));
+            $arreglo = $VALID_STATUS->fetch(PDO::FETCH_ASSOC);
+            $estatus = $arreglo['status_ticket'];
+                if($estatus == 1) //Si el ticket tiene status de 1 (activo entonces cancelalo)
+                  {
+                     $stmt_statusTkt = $this->pdo->prepare('update ventas set status_ticket = :status_ticket
                                          where id_ticket=:id_ticket');
 
             $stmt_statusTkt->execute(
@@ -72,13 +79,18 @@ class ControllerVentas
 
                                     }
 
-                           $result = 1; 
+                          return $result = 1; 
                         }
 
                      
                     }else{
-                         return 0;                   
+                        return $result = 0;                   
                          }
+                  }
+                  else{ //si el ticket tiene status de 0 retorna el mensaje de que ya estaba cancelado
+                 return   $result = 3;
+                      }
+           
             }
 
 

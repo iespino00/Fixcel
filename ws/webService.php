@@ -35,7 +35,7 @@ if($_REQUEST['tarea'] == '1')
   search();
 }
 
-
+ 
 
 if($_REQUEST['tarea'] == '2')
 { 
