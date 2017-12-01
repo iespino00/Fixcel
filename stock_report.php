@@ -54,7 +54,11 @@ $productos = $controller_productos->getAllProductos();
       <div class="card mb-3">
         <div class="card-header">
           <center><i class="fa fa-table"></i> Catálogo de Stock de Productos</center>
-          <center><a title='Exportar a Excel' onclick="tableToExcel('dataTable', 'Productos')"><span class='badge badge-pill badge-default'><img src='./icons/xls.svg' style='width:35px; height:35px;' /></span></a></center>
+          <center>
+            <a title="Regresar al menú de Reportes" href="reportes.php"><span class="badge badge-pill badge-default"><img src="./icons/back.svg" style="width:30px; height:30px;"" /></span></a>
+            <a title='Exportar a Excel' onclick="tableToExcel('dataTable', 'Productos')"><span class='badge badge-pill badge-default'><img src='./icons/xls.svg' style='width:35px; height:35px;' /></span></a>
+          
+         </center>
               </div>
           
 

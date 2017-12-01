@@ -91,11 +91,11 @@ $productos = $controller_productos->getAllProductos();
                   <div class="card text-white bg-success o-hidden h-100">
                     <div class="card-body">
                       <div class="card-body-icon">
-                        <i class="fa fa-exclamation-triangle"></i>
+                        <i class="fa fa-money"></i>
                       </div>
                       <div class="mr-5">Reporte de Ventas</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="ventas_report.php">
                       <span class="float-left">Ver Reporte</span>
                       <span class="float-right">
                         <i class="fa fa-angle-right"></i>

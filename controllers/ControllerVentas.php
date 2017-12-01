@@ -15,7 +15,7 @@ class ControllerVentas
     function __destruct() { }
 
 
-         public function cancelar_venta($id_ticket,$id_user,$observacion)
+ public function cancelar_venta($id_ticket,$id_user,$observacion)
             {     
             $status_ticket = 0;
 
@@ -93,7 +93,98 @@ class ControllerVentas
            
             }
 
+public function getVentas()
+{
+  $stmt = $this->pdo->prepare('SELECT * FROM ventas
+                                     inner join usuarios
+                                     on ventas.id_user = usuarios.id_user
+                                     where status_ticket= 1
+                                     order by ventas.id_ticket asc');
+        $result = $stmt->execute( );
 
+        $array = array();
+        $ind = 0;
+        foreach ($stmt as $row) 
+        {
+            $itm = new Ventas();
+            $itm->id_ticket = $row['id_ticket'];
+            $itm->nickname = $row['nickname'];
+            $date= new DateTime($row['fecha_ticket']) ;  
+            $itm->fecha_ticket = $date->format('Y-m-d');
+            $time= new DateTime($row['fecha_ticket']) ;  
+            $itm->hora_ticket = $date->format('h:i:s');
+           // $itm->fecha_ticket = $row['fecha_ticket'];
+            $itm->total_venta = $row['total_venta'];
+         
+            $array[$ind] = $itm;
+            $ind++;
+        }
+
+        return $array;
+}
+
+public function getDetalleVentas()
+{
+    $stmt = $this->pdo->prepare('SELECT * FROM detalle_ventas
+                                     inner join productos
+                                     on detalle_ventas.id_producto = productos.id_producto
+                                     order by detalle_ventas.id_ticket asc');
+        $result = $stmt->execute( );
+
+        $array = array();
+        $ind = 0;
+        foreach ($stmt as $row) 
+        {
+            $itm = new Ventas();
+            $itm->id_ticket = $row['id_ticket'];
+            $itm->descripcion_producto = $row['descripcion_producto'];
+            $itm->cantidad = $row['cantidad'];
+            $itm->costo_act_venta = $row['costo_act_venta'];
+            $itm->costo_act_proveedor = $row['costo_act_proveedor'];
+            $itm->ganancia = $row['ganancia'];
+            
+
+            $array[$ind] = $itm;
+            $ind++;
+        }
+
+        return $array;
+}
+
+
+  /*   public function getAllVentas()
+     {
+        $stmt = $this->pdo->prepare('SELECT * FROM ventas
+                                     inner join detalle_ventas
+                                     on ventas.id_ticket = detalle_ventas.id_ticket
+                                     inner join usuarios
+                                     on ventas.id_user = usuarios.id_user
+                                     inner join productos
+                                     on detalle_ventas.id_producto = productos.id_producto
+                                     where status_ticket= 1
+                                     order by ventas.id_ticket asc');
+        $result = $stmt->execute( );
+
+        $array = array();
+        $ind = 0;
+        foreach ($stmt as $row) 
+        {
+            $itm = new Ventas();
+            $itm->id_ticket = $row['id_ticket'];
+            $itm->nickname = $row['nickname'];
+            $itm->fecha_ticket = $row['fecha_ticket'];
+            $itm->total_venta = $row['total_venta'];
+
+            $itm->ganancia = $row['ganancia'];
+            $itm->descripcion_producto = $row['descripcion_producto'];
+          
+            $array[$ind] = $itm;
+            $ind++;
+        }
+
+        return $array;
+     }
+*/
 
 }
  

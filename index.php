@@ -109,13 +109,13 @@
 	<div id="login-box">
 		<div class="logo">
 			<img src="Images/login.png" class="img img-responsive img-circle center-block"/>
-			<h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
+			<h1 class="logo-caption"><span class="tweak">L</span>ogin <span class="tweak">F</span>ix<span class="tweak">C</span>el</h1>
 		</div><!-- /.logo -->
 		<div class="controls">
         <form class="form" method="POST">
     			<input type="text" id="nickname" name="nickname" placeholder="Nickname" class="form-control"  />
     			<input type="password" name="password" id="password" placeholder="Password" class="form-control" />
-    			<button type="submit"  id="submit" name="submit"  class="btn btn-default btn-block btn-custom">Accesar</button>
+    			<button type="submit"  id="submit" name="submit"  class="btn btn-default btn-block btn-custom">Accede</button>
         </form>
 
 
